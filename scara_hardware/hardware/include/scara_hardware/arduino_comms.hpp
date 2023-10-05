@@ -53,7 +53,6 @@ public:
     return serial_conn_.IsOpen();
   }
 
-
   std::string send_msg(const std::string &msg_to_send, bool print_output = false)
   {
     serial_conn_.FlushIOBuffers(); // Just in case
@@ -78,12 +77,12 @@ public:
     return response;
   }
 
-
   void send_empty_msg()
   {
     std::string response = send_msg("\r");
   }
 
+/*
   void send_cmd_receive_pos(double &cmd, int &pos)
   {
     std::string response = send_msg(std::to_string(cmd)+"\r\n");
@@ -116,6 +115,7 @@ public:
     ss << "u " << k_p << ":" << k_d << ":" << k_i << ":" << k_o << "\r";
     send_msg(ss.str());
   }
+  */
 
 private:
     LibSerial::SerialPort serial_conn_;

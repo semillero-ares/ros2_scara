@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <ros2_control name="hardware_component_ros2_control" type="system">
     <hardware>
-      <plugin>servo_hardware/ServoArduinoHardware</plugin>
+      <plugin>scara_hardware/ScaraHardwareComponent</plugin>
       
       <!-- Joint1 -->
       <param name="joint1_name">hombro</param>
@@ -34,7 +34,7 @@
 
       <!-- Serial Communication -->
       <param name="loop_rate">30</param>
-      <param name="device">/home/jammy/servo</param>
+      <param name="device">/tmp/scara</param>
       <param name="baud_rate">115200</param>
       <param name="timeout_ms">1000</param>
     </hardware>

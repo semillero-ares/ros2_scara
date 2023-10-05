@@ -230,10 +230,6 @@ hardware_interface::CallbackReturn ScaraHardwareComponent::on_activate(
   {
     return hardware_interface::CallbackReturn::ERROR;
   }
-  if (cfg_.pid_p > 0)
-  {
-    comms_.set_pid_values(cfg_.pid_p,cfg_.pid_d,cfg_.pid_i,cfg_.pid_o);
-  }
   RCLCPP_INFO(rclcpp::get_logger("ScaraHardwareComponent"), "Successfully activated!");
 
   return hardware_interface::CallbackReturn::SUCCESS;
@@ -256,17 +252,50 @@ hardware_interface::return_type ScaraHardwareComponent::read(
     return hardware_interface::return_type::ERROR;
   }
 
-  double pos_prev = joint1_.position;
   double delta_seconds = period.seconds();
+  
+  std::stringstream ss;
+  ss << 
+    joint1_.direction_cmd << "," <<
+    joint1_.period_cmd << "," <<
+    joint2_.direction_cmd << "," <<
+    joint2_.period_cmd << "," <<
+    joint3_.direction_cmd << "," <<
+    joint3_.period_cmd << "," <<
+    joint4_.direction_cmd << "," <<
+    joint4_.period_cmd << "\n";
+  
+  RCLCPP_INFO(rclcpp::get_logger("ScaraHardwareComponent"),
+    "Sending via Serial >> '%s'", ss.str().c_str());
 
-  double cmd_degree = joint1_.cmd*57.296 + 90;
-  int pos_degree = 0;
-  comms_.send_cmd_receive_pos(cmd_degree, pos_degree);
+  std::string response = comms_.send_msg(ss.str());
+  
+  RCLCPP_INFO(rclcpp::get_logger("ScaraHardwareComponent"),
+    "Receiving via Serial >> '%s'", response.c_str());
+  
+  std::string delimiter = ",";
+  size_t del_pos = response.find(delimiter);
 
-  // RCLCPP_INFO(rclcpp::get_logger("ScaraHardwareComponent"), "COMANDO: '%f'", cmd_degree);
+  std::string aux_value = response.substr(0, del_pos);
+  joint1_.position_cnts = std::atoi(aux_value.c_str());
+  response = response.substr(del_pos + delimiter.length());
 
-  joint1_.position = (pos_degree-90) / 57.296; 
-  joint1_.velocity = (joint1_.position - pos_prev) / delta_seconds;
+  del_pos = response.find(delimiter);
+  aux_value = response.substr(0, del_pos);
+  joint2_.position_cnts = std::atoi(aux_value.c_str());
+  response = response.substr(del_pos + delimiter.length());
+
+  del_pos = response.find(delimiter);
+  aux_value = response.substr(0, del_pos);
+  joint3_.position_cnts = std::atoi(aux_value.c_str());
+  response = response.substr(del_pos + delimiter.length());
+
+  joint4_.position_cnts = std::atoi(response.c_str());
+
+  joint1_.loop(delta_seconds);
+  joint2_.loop(delta_seconds);
+  joint3_.loop(delta_seconds);
+  joint4_.loop(delta_seconds);
 
   return hardware_interface::return_type::OK;
 }
@@ -278,10 +307,6 @@ hardware_interface::return_type scara_hardware ::ScaraHardwareComponent::write(
   {
     return hardware_interface::return_type::ERROR;
   }
-
-  /*int motor_l_counts_per_loop = joint1_.cmd / joint1_.rads_per_count / cfg_.loop_rate;
-  comms_.set_motor_values(motor_l_counts_per_loop, 0);
-  joint1_.position = joint1_.cmd;*/
   return hardware_interface::return_type::OK;
 }
 

@@ -1,6 +1,6 @@
-<library path="servo_hardware">
-  <class name="servo_hardware/ServoArduinoHardware"
-         type="servo_hardware::ServoArduinoHardware"
+<library path="scara_hardware">
+  <class name="scara_hardware/ScaraHardwareComponent"
+         type="scara_hardware::ScaraHardwareComponent"
          base_class_type="hardware_interface::SystemInterface">
     <description>
       This package creates a hardware component using a systema hardware interface-type. It uses position command and velocity and position state interfaces. 

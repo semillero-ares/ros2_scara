@@ -16,6 +16,7 @@ class Joint
     double counts_per_unit = 0;
     double velocity_cmd = 0;
     int period_cmd = 0;
+    int direction_cmd = 0;
     int us_min = 1; // <----------- input parameter
     int us_max = 10; // <---------- input parameter
     int position_cnts = 0;
@@ -40,17 +41,41 @@ class Joint
       position_offset = offset;
     }
 
+    void loop(double dt){
+      measure(dt);
+      control();
+    }
+
+  private: 
+
+    int position_delta_ = 0;
+
     double calc_position(){
-      return 0;
+      position_delta_ = position_cnts + position_offset;
+      return (double) position_delta_ / counts_per_unit;
     }
 
-    double calc_velocity(){
-      return 0;
+    void measure(double dt){
+      double pos_prev = position;
+      position = calc_position();
+      velocity = (position - pos_prev) / dt;
     }
 
-    double calc_enc_angle()
-    {
-      return 0 ;//enc * rads_per_count;
+    void control(){
+      error = ref - position;
+      cmd = gain*error;
+      velocity_cmd = cmd*counts_per_unit;
+      if(velocity_cmd == 0){
+        period_cmd = 0;
+      }else{
+        if(velocity_cmd>0){
+          direction_cmd = 1;
+        }else{
+          direction_cmd = 0;
+        }
+        period_cmd = (int) (1000000/velocity_cmd);
+        period_cmd = fmin(fmax(abs(period_cmd),us_min),us_max);
+      }
     }
 
 };
