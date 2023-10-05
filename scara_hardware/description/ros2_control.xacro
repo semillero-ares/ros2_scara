@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <ros2_control name="hardware_component_ros2_control" type="system">
+    <hardware>
+      <plugin>servo_hardware/ServoArduinoHardware</plugin>
+      
+      <!-- Joint1 -->
+      <param name="joint1_name">hombro</param>
+      <param name="joint1_controller_gain">1.0</param>
+      <param name="joint1_minimum_time_period">1</param>
+      <param name="joint1_maximum_time_period">10</param>
+      <param name="joint1_offset">10</param>
+
+      <!-- Joint2 -->
+      <param name="joint2_name">codo</param>
+      <param name="joint2_controller_gain">1.0</param>
+      <param name="joint2_minimum_time_period">1</param>
+      <param name="joint2_maximum_time_period">10</param>
+      <param name="joint2_offset">10</param>
+
+      <!-- Joint3 -->
+      <param name="joint3_name">muneca</param>
+      <param name="joint3_controller_gain">1.0</param>
+      <param name="joint3_minimum_time_period">1</param>
+      <param name="joint3_maximum_time_period">10</param>
+      <param name="joint3_offset">10</param>
+
+      <!-- Joint4 -->
+      <param name="joint4_name">articulacion</param>
+      <param name="joint4_controller_gain">1.0</param>
+      <param name="joint4_minimum_time_period">1</param>
+      <param name="joint4_maximum_time_period">10</param>
+      <param name="joint4_offset">10</param>
+
+      <!-- Serial Communication -->
+      <param name="loop_rate">30</param>
+      <param name="device">/home/jammy/servo</param>
+      <param name="baud_rate">115200</param>
+      <param name="timeout_ms">1000</param>
+    </hardware>
+    <joint name="hombro">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="codo">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="muneca">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="articulacion">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+</robot>
