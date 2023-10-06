@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: "scara"
+    relative_path: urdr/urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/brazo.srdf
+  CONFIG:
+    author_name: Dr. Davinson Castaño
+    author_email: dcasta25@eafit.edu.co
+    generated_timestamp: 1694796742

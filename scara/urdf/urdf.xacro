@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot name="scara">
+    <link name="world" />
+    <link name="base_link">
+        <inertial>
+            <origin xyz="-0.000640588858643432 -0.0227899395443669 0.222138385795263" rpy="0 0 0" />
+            <mass value="25.2913216476849" />
+            <inertia ixx="0.790731520652577" ixy="-0.000126452359034705" ixz="-0.00124958228784166" iyy="0.719705502706673" iyz="-0.045904832517807" izz="0.235661049152231" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://scara/meshes/base.stl" />
+            </geometry>
+            <material name="">
+                <color rgba="1 0.690196078431373 0.509803921568627 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://scara/meshes/base.stl" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="fijacion" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="world" />
+        <child link="base_link" />
+    </joint>
+    <link name="antebrazo">
+        <inertial>
+            <origin xyz="0.19207255412873 -4.44089209850063E-16 0.0773291008797499" rpy="0 0 0" />
+            <mass value="6.61812704263685" />
+            <inertia ixx="0.0163492326815022" ixy="-4.33680868994202E-19" ixz="-0.00559214932720003" iyy="0.189161914146819" iyz="-4.33680868994202E-19" izz="0.185917826831014" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://scara/meshes/antebrazo.stl" />
+            </geometry>
+            <material name="">
+                <color rgba="0.901960784313726 0.92156862745098 0.92156862745098 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://scara/meshes/antebrazo.stl" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="hombro" type="revolute">
+        <limit lower="-${pi/2}" upper="${pi/2}" effort="0.0" velocity="0.0"/>
+        <origin xyz="0 0 0.5925" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="antebrazo" />
+        <axis xyz="0 0 1" />
+    </joint>
+    <link name="brazo">
+        <inertial>
+            <origin xyz="0.222762310134691 3.29484034500283E-09 0.0488985638431653" rpy="0 0 0" />
+            <mass value="2.65756869140876" />
+            <inertia ixx="0.042822992999235" ixy="-7.69989501846202E-10" ixz="-0.0150865353873821" iyy="0.0810409610085131" iyz="5.25838247510818E-10" izz="0.042625926421083" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://scara/meshes/brazo.stl" />
+            </geometry>
+            <material name="">
+                <color rgba="0.901960784313726 0.92156862745098 0.92156862745098 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://scara/meshes/brazo.stl" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="codo" type="revolute">
+        <limit lower="-${pi/2}" upper="${pi/2}" effort="0.0" velocity="0.0"/>
+        <origin xyz="0.4025 0 0" rpy="0 0 0" />
+        <parent link="antebrazo" />
+        <child link="brazo" />
+        <axis xyz="0 0 1" />
+    </joint>
+    <link name="mano">
+        <inertial>
+            <origin xyz="-0.00102579079756804 5.55111512312578E-17 0.0135796008626214" rpy="0 0 0" />
+            <mass value="0.0339542917352885" />
+            <inertia ixx="4.97575617337366E-06" ixy="-1.05879118406788E-22" ixz="-3.76024980451015E-08" iyy="6.24472787989437E-06" iyz="-6.54663171255426E-22" izz="8.23729952674065E-06" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://scara/meshes/mano.stl" />
+            </geometry>
+            <material name="">
+                <color rgba="0.901960784313726 0.92156862745098 0.92156862745098 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://scara/meshes/mano.stl" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="falange" type="prismatic">
+        <origin xyz="0.37763 0 0.020231" rpy="0 0 0" />
+        <parent link="brazo" />
+        <child link="mano" />
+        <axis xyz="0 0 1" />
+        <limit lower="0" upper="0.15" effort="80" velocity="1" />
+    </joint>
+    <link name="dedo">
+        <inertial>
+            <origin xyz="-5.55111512312578E-17 -5.55111512312578E-17 -0.198709291093866" rpy="0 0 0" />
+            <mass value="0.0213296330704596" />
+            <inertia ixx="0.000283413287481571" ixy="0" ixz="3.50601186012906E-23" iyy="0.000283413287481571" iyz="-3.30206942352308E-20" izz="1.80782591982378E-07" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://scara/meshes/dedo.stl" />
+            </geometry>
+            <material name="">
+                <color rgba="0.780392156862745 0.76078431372549 0.741176470588235 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://scara/meshes/dedo.stl" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="muneca" type="revolute">
+        <limit lower="-${pi}" upper="${pi}" effort="0.0" velocity="0.0"/>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="mano" />
+        <child link="dedo" />
+        <axis xyz="0 0 1" />
+    </joint>
+</robot>

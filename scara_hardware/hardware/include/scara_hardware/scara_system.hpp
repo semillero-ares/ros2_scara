@@ -45,6 +45,7 @@ struct Config
   std::string device = "";
   int baud_rate = 0;
   int timeout_ms = 0;
+  bool echo = false;
 };
 
 public:

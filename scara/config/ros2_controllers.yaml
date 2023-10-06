@@ -1,0 +1,33 @@
+# This config file is used by ros2_control
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    scara_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+scara_controller:
+  ros__parameters:
+    interface_name: position
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    joints:
+      - hombro
+      - codo
+      - muneca
+      - falange
+
+joint_state_broadcaster:
+  ros__parameters:
+    joints:
+      - hombro
+      - codo
+      - muneca
+      - falange
+

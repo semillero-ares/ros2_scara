@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="epson">
+
+    <!-- Import scara urdf file -->
+    <xacro:include filename="$(find scara)/urdf/urdf.xacro" />
+
+    <!-- Import brazo ros2_control description -->
+    <xacro:include filename="$(find scara_hardware)/config/ros2_control.xacro" />
+    <xacro:hardware_component 
+        name="GazeboSimSystem" 
+        plugin="gazebo_ros2_control/GazeboSystem" 
+    />
+
+    <!-- Gazebo Colors & Plugins -->
+    <gazebo reference="base_link">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+    <gazebo reference="antebrazo">
+        <material>Gazebo/White</material>
+    </gazebo>
+    <gazebo reference="brazo">
+        <material>Gazebo/White</material>
+    </gazebo>
+    <gazebo reference="mano">
+        <material>Gazebo/White</material>
+    </gazebo>
+    <gazebo reference="dedo">
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <gazebo>
+        <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+            <parameters>$(find scara)/config/ros2_controllers.yaml</parameters>
+        </plugin>
+    </gazebo>
+
+</robot>

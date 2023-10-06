@@ -19,7 +19,6 @@ foreach(Dependency IN ITEMS ${THIS_PACKAGE_INCLUDE_DEPENDS})
   find_package(${Dependency} REQUIRED)
 endforeach()
 
-
 ## COMPILE
 add_library(
   scara_hardware
@@ -46,6 +45,10 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE "SCARA_HARDWARE_BUILDING_DLL"
 pluginlib_export_plugin_description_file(hardware_interface scara_hardware.xml)
 
 # INSTALL
+install(
+  DIRECTORY config
+  DESTINATION share/${PROJECT_NAME}
+)
 install(
   DIRECTORY hardware/include/
   DESTINATION include/scara_hardware
