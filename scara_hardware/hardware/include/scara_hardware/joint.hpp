@@ -64,7 +64,7 @@ class Joint
     int position_delta_ = 0;
 
     double calc_position(){
-      position_delta_ = position_cnts + position_offset;
+      position_delta_ = position_cnts - position_offset;
       return (double) position_delta_ / counts_per_unit;
     }
 

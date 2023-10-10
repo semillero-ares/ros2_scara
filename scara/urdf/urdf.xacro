@@ -54,7 +54,7 @@
         </collision>
     </link>
     <joint name="hombro" type="revolute">
-        <limit lower="-${pi/2}" upper="${pi/2}" effort="0.0" velocity="0.0"/>
+        <limit lower="-${pi}" upper="${pi}" effort="0.0" velocity="0.0"/>
         <origin xyz="0 0 0.5925" rpy="0 0 0" />
         <parent link="base_link" />
         <child link="antebrazo" />
@@ -83,7 +83,7 @@
         </collision>
     </link>
     <joint name="codo" type="revolute">
-        <limit lower="-${pi/2}" upper="${pi/2}" effort="0.0" velocity="0.0"/>
+        <limit lower="-${pi}" upper="${pi}" effort="0.0" velocity="0.0"/>
         <origin xyz="0.4025 0 0" rpy="0 0 0" />
         <parent link="antebrazo" />
         <child link="brazo" />
@@ -112,10 +112,10 @@
         </collision>
     </link>
     <joint name="falange" type="prismatic">
-        <origin xyz="0.37763 0 0.020231" rpy="0 0 0" />
+        <origin xyz="0.37763 0 0.170231" rpy="0 0 0" />
         <parent link="brazo" />
         <child link="mano" />
-        <axis xyz="0 0 1" />
+        <axis xyz="0 0 -1" />
         <limit lower="0" upper="0.15" effort="80" velocity="1" />
     </joint>
     <link name="dedo">

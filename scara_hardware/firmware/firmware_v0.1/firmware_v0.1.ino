@@ -3,43 +3,43 @@
 #define DedoDirec  35
 #define DedoSensor 16
 
-volatile unsigned int DedoCount     = 0;
-volatile unsigned int DedoPeriod    = 0;
-volatile long         DedoPosition  = 0;
-volatile bool         DedoOut       = false;
-volatile bool         DedoDir       = false;
+volatile unsigned long DedoPeriod    = 0;
+volatile unsigned long DedoCount     = 0;
+volatile long          DedoPosition  = 0;
+volatile bool          DedoOut       = false;
+volatile bool          DedoDir       = false;
 
 /////// Muneca
 #define MunecaPulso  32
 #define MunecaDirec  33
 
-volatile unsigned int MunecaCount     = 0;
-volatile unsigned int MunecaPeriod    = 0;
-volatile long         MunecaPosition  = 0;
-volatile bool         MunecaOut       = false;
-volatile bool         MunecaDir       = false;
+volatile unsigned long MunecaPeriod    = 0;
+volatile unsigned long MunecaCount     = 0;
+volatile long          MunecaPosition  = 0;
+volatile bool          MunecaOut       = false;
+volatile bool          MunecaDir       = false;
 
 /////// Codo
 #define CodoPulso  30
 #define CodoDirec  31
 #define CodoSensor 17
 
-volatile unsigned int CodoCount     = 0;
-volatile unsigned int CodoPeriod    = 0;
-volatile long         CodoPosition  = 0;
-volatile bool         CodoOut       = false;
-volatile bool         CodoDir       = false;
+volatile unsigned long CodoPeriod    = 0;
+volatile unsigned long CodoCount     = 0;
+volatile long          CodoPosition  = 0;
+volatile bool          CodoOut       = false;
+volatile bool          CodoDir       = false;
 
 /////// Hombro
 #define HombroPulso  7
 #define HombroDirec  8
 #define HombroSensor 9
 
-volatile unsigned int HombroCount     = 0;
-volatile unsigned int HombroPeriod    = 0;
-volatile long         HombroPosition  = 0;
-volatile bool         HombroOut       = false;
-volatile bool         HombroDir       = false;
+volatile unsigned long HombroPeriod    = 0;
+volatile unsigned long HombroCount     = 0;
+volatile long          HombroPosition  = 0;
+volatile bool          HombroOut       = false;
+volatile bool          HombroDir       = false;
 
 
 volatile unsigned long updateCount = 0;
@@ -88,7 +88,7 @@ void timed_loop() {
     DedoCount = 0;
     digitalWrite(DedoDirec, DedoDir);
     digitalWrite(DedoPulso, DedoOut);
-    DedoPosition = DedoPosition + DedoDir * 1 - !DedoDir * 1;
+    DedoPosition = DedoPosition - DedoDir * 1 + !DedoDir * 1;
   }
 
   // Muneca
@@ -210,7 +210,7 @@ void actualizarParametros()
     part = strtok (NULL,",");         CodoPeriod = atoi(part);     
     part = strtok (NULL,",");         MunecaDir = atoi(part) > 0;     
     part = strtok (NULL,",");         MunecaPeriod = atoi(part);     
-    part = strtok (NULL,",");         DedoDir = atoi(part) > 0;     
+    part = strtok (NULL,",");         DedoDir = !(atoi(part) > 0);     
     part = strtok (NULL,",");         DedoPeriod = atoi(part);     
 
     inputString = "";

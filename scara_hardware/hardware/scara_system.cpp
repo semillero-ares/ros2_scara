@@ -43,12 +43,6 @@ namespace scara_hardware
     int j1_maxtp = std::stoi(info_.hardware_parameters["joint1_maximum_time_period"]);
     int j1_offset = std::stoi(info_.hardware_parameters["joint1_offset"]);
 
-    if (j1_gain <= 0)
-    {
-      RCLCPP_INFO(rclcpp::get_logger("ScaraHardwareComponent"), "PID values not supplied, using defaults.");
-      j1_gain = 1.0;
-    }
-
     joint1_.setup(j1_name, j1_gain, j1_counts, j1_mintp, j1_maxtp, j1_offset);
 
     // Joint 2
@@ -58,12 +52,6 @@ namespace scara_hardware
     int j2_mintp = std::stoi(info_.hardware_parameters["joint2_minimum_time_period"]);
     int j2_maxtp = std::stoi(info_.hardware_parameters["joint2_maximum_time_period"]);
     int j2_offset = std::stoi(info_.hardware_parameters["joint2_offset"]);
-
-    if (j2_gain <= 0)
-    {
-      RCLCPP_INFO(rclcpp::get_logger("ScaraHardwareComponent"), "PID values not supplied, using defaults.");
-      j2_gain = 1.0;
-    }
 
     joint2_.setup(j2_name, j2_gain, j2_counts, j2_mintp, j2_maxtp, j2_offset);
 
@@ -75,12 +63,6 @@ namespace scara_hardware
     int j3_maxtp = std::stoi(info_.hardware_parameters["joint3_maximum_time_period"]);
     int j3_offset = std::stoi(info_.hardware_parameters["joint3_offset"]);
 
-    if (j3_gain <= 0)
-    {
-      RCLCPP_INFO(rclcpp::get_logger("ScaraHardwareComponent"), "PID values not supplied, using defaults.");
-      j3_gain = 1.0;
-    }
-
     joint3_.setup(j3_name, j3_gain, j3_counts, j3_mintp, j3_maxtp, j3_offset);
 
     // Joint 4
@@ -90,12 +72,6 @@ namespace scara_hardware
     int j4_mintp = std::stoi(info_.hardware_parameters["joint4_minimum_time_period"]);
     int j4_maxtp = std::stoi(info_.hardware_parameters["joint4_maximum_time_period"]);
     int j4_offset = std::stoi(info_.hardware_parameters["joint4_offset"]);
-
-    if (j4_gain <= 0)
-    {
-      RCLCPP_INFO(rclcpp::get_logger("ScaraHardwareComponent"), "PID values not supplied, using defaults.");
-      j4_gain = 1.0;
-    }
 
     joint4_.setup(j4_name, j4_gain, j4_counts, j4_mintp, j4_maxtp, j4_offset);
 
