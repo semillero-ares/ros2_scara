@@ -8,18 +8,18 @@
         <!-- Joint1 -->
         <param name="joint1_name">hombro</param>
         <param name="joint1_controller_gain">50.0</param>
-        <param name="joint1_counts_per_unit">186740.0</param>
+        <param name="joint1_counts_per_unit">133005.464</param>
         <param name="joint1_minimum_time_period">1</param>
         <param name="joint1_maximum_time_period">1000000</param>
-        <param name="joint1_offset">220000</param>
+        <param name="joint1_offset">243400</param>
 
         <!-- Joint2 -->
         <param name="joint2_name">codo</param>
         <param name="joint2_controller_gain">50.0</param>
-        <param name="joint2_counts_per_unit">12308.0</param>
+        <param name="joint2_counts_per_unit">15481.74</param>
         <param name="joint2_minimum_time_period">3</param>
         <param name="joint2_maximum_time_period">1000000</param>
-        <param name="joint2_offset">-29000</param>
+        <param name="joint2_offset">-39850</param>
 
         <!-- Joint3 -->
         <param name="joint3_name">muneca</param>
@@ -47,7 +47,7 @@
       <joint name="hombro">
         <command_interface name="position"/>
         <state_interface name="position">
-          <param name="initial_value">0.0</param>
+          <param name="initial_value">-1.84</param>
         </state_interface>
         <state_interface name="velocity">
           <param name="initial_value">0.0</param>
@@ -56,7 +56,7 @@
       <joint name="codo">
         <command_interface name="position"/>
         <state_interface name="position">
-          <param name="initial_value">0.0</param>
+          <param name="initial_value">2.57</param>
         </state_interface>
         <state_interface name="velocity">
           <param name="initial_value">0.0</param>
@@ -65,7 +65,7 @@
       <joint name="falange">
         <command_interface name="position"/>
         <state_interface name="position">
-          <param name="initial_value">0.1</param>
+          <param name="initial_value">0.0</param>
         </state_interface>
         <state_interface name="velocity">
           <param name="initial_value">0.0</param>
