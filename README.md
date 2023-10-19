@@ -21,3 +21,25 @@ Paquetes para controlar un robot SCARA Epson que tenemos en la universidad usand
     ```bash
     ros2 launch servo_hardware_moveit_config demo.launch.py
     ```	
+
+## Github Pages
+
+Para usar el github-pages necesitamos instalar:
+
+```bash
+pip install mkdocs pymdown-extensions
+```
+
+Para correr en local:
+
+```bash
+mkdocs serve
+```
+
+Para desplegar la página en github
+
+```bash
+mkdocs gh-deploy
+```
+
+Luego de desplegar hacer el _commit_ y _push_ del repositorio para subir los cambios.
