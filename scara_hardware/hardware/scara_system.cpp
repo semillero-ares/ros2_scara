@@ -39,21 +39,23 @@ namespace scara_hardware
     std::string j1_name = info_.hardware_parameters["joint1_name"];
     double j1_gain = std::stof(info_.hardware_parameters["joint1_controller_gain"]);
     double j1_counts = std::stof(info_.hardware_parameters["joint1_counts_per_unit"]);
+    double j1_ref = std::stof(info_.hardware_parameters["joint1_ref"]);
     int j1_mintp = std::stoi(info_.hardware_parameters["joint1_minimum_time_period"]);
     int j1_maxtp = std::stoi(info_.hardware_parameters["joint1_maximum_time_period"]);
     int j1_offset = std::stoi(info_.hardware_parameters["joint1_offset"]);
 
-    joint1_.setup(j1_name, j1_gain, j1_counts, j1_mintp, j1_maxtp, j1_offset);
+    joint1_.setup(j1_name, j1_gain, j1_counts, j1_ref, j1_mintp, j1_maxtp, j1_offset);
 
     // Joint 2
     std::string j2_name = info_.hardware_parameters["joint2_name"];
     double j2_gain = std::stof(info_.hardware_parameters["joint2_controller_gain"]);
     double j2_counts = std::stof(info_.hardware_parameters["joint2_counts_per_unit"]);
+    double j2_ref = std::stof(info_.hardware_parameters["joint2_ref"]);
     int j2_mintp = std::stoi(info_.hardware_parameters["joint2_minimum_time_period"]);
     int j2_maxtp = std::stoi(info_.hardware_parameters["joint2_maximum_time_period"]);
     int j2_offset = std::stoi(info_.hardware_parameters["joint2_offset"]);
 
-    joint2_.setup(j2_name, j2_gain, j2_counts, j2_mintp, j2_maxtp, j2_offset);
+    joint2_.setup(j2_name, j2_gain, j2_counts, j2_ref, j2_mintp, j2_maxtp, j2_offset);
 
     // Joint 3
     std::string j3_name = info_.hardware_parameters["joint3_name"];
@@ -63,7 +65,7 @@ namespace scara_hardware
     int j3_maxtp = std::stoi(info_.hardware_parameters["joint3_maximum_time_period"]);
     int j3_offset = std::stoi(info_.hardware_parameters["joint3_offset"]);
 
-    joint3_.setup(j3_name, j3_gain, j3_counts, j3_mintp, j3_maxtp, j3_offset);
+    joint3_.setup(j3_name, j3_gain, j3_counts, 0.0, j3_mintp, j3_maxtp, j3_offset);
 
     // Joint 4
     std::string j4_name = info_.hardware_parameters["joint4_name"];
@@ -73,7 +75,7 @@ namespace scara_hardware
     int j4_maxtp = std::stoi(info_.hardware_parameters["joint4_maximum_time_period"]);
     int j4_offset = std::stoi(info_.hardware_parameters["joint4_offset"]);
 
-    joint4_.setup(j4_name, j4_gain, j4_counts, j4_mintp, j4_maxtp, j4_offset);
+    joint4_.setup(j4_name, j4_gain, j4_counts, 0.0, j4_mintp, j4_maxtp, j4_offset);
 
     cfg_.loop_rate = std::stof(info_.hardware_parameters["loop_rate"]);
     cfg_.device = info_.hardware_parameters["device"];

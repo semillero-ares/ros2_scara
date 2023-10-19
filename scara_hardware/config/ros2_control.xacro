@@ -9,6 +9,7 @@
         <param name="joint1_name">hombro</param>
         <param name="joint1_controller_gain">50.0</param>
         <param name="joint1_counts_per_unit">133005.464</param>
+        <param name="joint1_ref">-1.84</param>
         <param name="joint1_minimum_time_period">1</param>
         <param name="joint1_maximum_time_period">1000000</param>
         <param name="joint1_offset">243400</param>
@@ -17,6 +18,7 @@
         <param name="joint2_name">codo</param>
         <param name="joint2_controller_gain">50.0</param>
         <param name="joint2_counts_per_unit">15481.74</param>
+        <param name="joint2_ref">2.57</param>
         <param name="joint2_minimum_time_period">3</param>
         <param name="joint2_maximum_time_period">1000000</param>
         <param name="joint2_offset">-39850</param>

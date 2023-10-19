@@ -30,17 +30,19 @@ class Joint
       const std::string &joint_name, 
       double controller_gain, 
       double counts, 
+      double reference,
       int min, 
       int max, 
       int offset)
     {
-      setup(joint_name, controller_gain, counts, min, max, offset);
+      setup(joint_name, controller_gain, counts, reference, min, max, offset);
     }
 
     void setup(
       const std::string &joint_name, 
       double controller_gain, 
       double counts, 
+      double reference,
       int min, 
       int max, 
       int offset)
@@ -49,6 +51,7 @@ class Joint
       name = joint_name;
       gain = controller_gain;
       counts_per_unit = counts;
+      ref = reference;
       us_min = min;
       us_max = max;
       position_offset = offset;
