@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Ros2 Installation for Ubuntu - Tutorial para ROS 2 Scara</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Ros2 Installation for Ubuntu";
+        var mkdocs_page_input_path = "Ros2 installation.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Tutorial para ROS 2 Scara
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" title="Escriba el término de búsqueda aquí" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegación">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Welcome to MkDocs</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Ros2 Installation for Ubuntu</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#setup-sources">Setup Sources</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#install-ros-2-packages">Install ROS 2 packages</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-setup">Environment setup</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#verify-the-installation">Verify the installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Menú de navegación en móvil">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Tutorial para ROS 2 Scara</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Documentos"></a></li>
+      <li class="breadcrumb-item active">Ros2 Installation for Ubuntu</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="ros2-installation-for-ubuntu">Ros2 Installation for Ubuntu</h1>
+<p>Here is a condensed version of the <a href="https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html">official tutorial</a> to install ROS2 on Ubuntu. We must follow a series of commands in the terminal:</p>
+<h2 id="setup-sources">Setup Sources</h2>
+<ul>
+<li>Verify the <code>locale</code> using: </li>
+</ul>
+<p><code>locale</code></p>
+<p>As a result, <code>UTF-8</code> is obtained in all cases.</p>
+<pre><code>LANG=en_US.UTF-8
+LANGUAGE=
+LC_CTYPE="en_US.UTF-8"
+LC_NUMERIC=es_CO.UTF-8
+LC_TIME=es_CO.UTF-8
+LC_COLLATE="en_US.UTF-8"
+LC_MONETARY=es_CO.UTF-8
+LC_MESSAGES="en_US.UTF-8"
+LC_PAPER=es_CO.UTF-8
+LC_NAME=es_CO.UTF-8
+LC_ADDRESS=es_CO.UTF-8
+LC_TELEPHONE=es_CO.UTF-8
+LC_MEASUREMENT=es_CO.UTF-8
+LC_IDENTIFICATION=es_CO.UTF-8
+LC_ALL=
+</code></pre>
+<p>Otherwise we must use:</p>
+<pre><code>sudo apt update &amp;&amp; sudo apt install locales
+sudo locale-gen en_US en_US.UTF-8
+sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+locale  # verify settings
+</code></pre>
+<ul>
+<li>
+<p>We will activate the <code>universe</code> repository:</p>
+<pre><code>sudo apt install software-properties-common
+sudo add-apt-repository universe
+</code></pre>
+</li>
+<li>
+<p>We install git and other packages:</p>
+<pre><code>sudo apt install git
+sudo apt install libserial-dev
+</code></pre>
+</li>
+<li>
+<p>We will add the security key for the ROS2 repository:</p>
+<pre><code>sudo apt update &amp;&amp; sudo apt install curl -y
+
+sudo curl -ssl https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+</code></pre>
+</li>
+<li>
+<p>Add the ROS2 repository to the repository list:</p>
+<pre><code>echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release &amp;&amp; echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list &gt; /dev/null
+</code></pre>
+</li>
+</ul>
+<h2 id="install-ros-2-packages">Install ROS 2 packages</h2>
+<ul>
+<li>
+<p>We update the list and update the installed software:</p>
+<pre><code>sudo apt update &amp;&amp; sudo apt upgrade
+</code></pre>
+</li>
+<li>
+<p>We install ROS2 humble version:</p>
+<pre><code>sudo apt install ros-humble-desktop
+</code></pre>
+</li>
+<li>
+<p>We install ROS2 packages that we will use:</p>
+<pre><code>sudo apt install ros-humble-gazebo-ros-pkgs
+
+sudo apt install ros-humble-ros2-control ros-humble-ros2-controllers ros-humble-gazebo-ros2-control
+
+sudo apt install ros-humble-moveit ros-humble-moveit-resources -y
+</code></pre>
+</li>
+<li>
+<p>Install Colcon:</p>
+<pre><code>sudo apt install python3-colcon-common-extensions -y
+</code></pre>
+</li>
+</ul>
+<h2 id="environment-setup">Environment setup</h2>
+<ul>
+<li>Finally, we configure the terminal to identify the ROS2 commands:<pre><code>echo "source /opt/ros/humble/setup.bash" &gt;&gt; ~/.bashrc
+</code></pre>
+</li>
+</ul>
+<h2 id="verify-the-installation">Verify the installation</h2>
+<ul>
+<li>
+<p>We restart the terminal and then we can test that we have ROS2 correctly installed and running:</p>
+<ul>
+<li>
+<p>In terminal 1:</p>
+<pre><code>ros2 run turtlesim turtlesim_node
+</code></pre>
+</li>
+<li>
+<p>In terminal 2:</p>
+<pre><code>ros2 run turtlesim turtle_teleop_key
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>When running ROS2 commands that open a graphical interface like the following:</p>
+<pre><code>ros2 run rviz2 rviz2
+</code></pre>
+<p>An error may take place:</p>
+<pre><code>/opt/ros/humble/lib/rviz2/rviz2: error while loading shared libraries: libQt5Core.so.5: cannot open shared object file: No such file or directory
+[ros2run]: Process exited with failure 127
+</code></pre>
+<p>to solve it we use the following command:</p>
+<pre><code>sudo strip --remove-section=.note.ABI-tag /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Navegación de pie de página">
+        <a href=".." class="btn btn-neutral float-left" title="Welcome to MkDocs"><span class="icon icon-circle-arrow-left"></span> Anterior</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Derechos de autor &copy; 2023  <a href="https://github.com/Ph0n1x0">Luis Miguel Loaiza</a>,  <a href="https://github.com/David-8a">David Ochoa</a>,  <a href="https://github.com/davinsony">Davinson Castaño-Cano</a>.
+</p>
+  </div>
+
+  Construído con <a href="https://www.mkdocs.org/">MkDocs</a> usando <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provisto por <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versiones">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Anterior</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../js/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
