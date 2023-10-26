@@ -90,11 +90,13 @@ Otherwise we must use:
 
     *  In terminal 1:
 
-            ros2 run turtlesim turtlesim_node
+            source /opt/ros/humble/setup.bash
+            ros2 run demo_nodes_cpp talker
 
     *  In terminal 2:
 
-            ros2 run turtlesim turtle_teleop_key
+            source /opt/ros/humble/setup.bash
+            ros2 run demo_nodes_py listener
 
 ## Troubleshooting
 
