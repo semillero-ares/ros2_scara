@@ -180,12 +180,14 @@ sudo apt install ros-humble-moveit ros-humble-moveit-resources -y
 <ul>
 <li>
 <p>In terminal 1:</p>
-<pre><code>ros2 run turtlesim turtlesim_node
+<pre><code>source /opt/ros/humble/setup.bash
+ros2 run demo_nodes_cpp talker
 </code></pre>
 </li>
 <li>
 <p>In terminal 2:</p>
-<pre><code>ros2 run turtlesim turtle_teleop_key
+<pre><code>source /opt/ros/humble/setup.bash
+ros2 run demo_nodes_py listener
 </code></pre>
 </li>
 </ul>
