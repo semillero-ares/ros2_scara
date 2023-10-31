@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>11. Servo launch - Tutorial para ROS 2 Scara</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "11. Servo launch";
+        var mkdocs_page_input_path = "5-5-ServoLaunch.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Tutorial para ROS 2 Scara
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../2-0-Canal%20de%20referencia/">2. Canal de referencia</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../3-0-Requisitos/">3. Requisitos software</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../4-0-primerosPasosRos/">4. Primeros pasos con ROS</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../4-1-URDF/">5. URDF</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-0-Servo/">6. Servo</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-1-ServoXacros/">7. Servo Xacros</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-2-ServoControllers/">8. Servo Controllers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-3-ServoMoveIt/">9. Servo Moveit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-4-ServoHardware%20y%20arduino/">10. Servo hardware</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">11. Servo launch</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#111-mock-launch">11.1. Mock Launch</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#112-gazebo-launch">11.2. Gazebo Launch</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#113-demo-launch">11.3. Demo Launch</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../6-0-SCARA/">12. SCARA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../9-0-Anexos/">Anexos</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Ros2%20installation/">Ros2 Installation for Ubuntu</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Tutorial para ROS 2 Scara</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>11. Servo launch</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="11-servo-launch">11. Servo launch</h1>
+<p style="text-align: justify;">
+
+Los archivos Launch son de vital importancia porque son con los que se ejecuta todo un paquete. Estos archivos normalmente se hacen en python y su funcionamiento es bastante básico. Su arquitectura se constituye de una función general llamada `generate_launch_description` que internamente posee los definiciones con parámetros de los diferentes nodos que deseamos ejecutar. como Gazebo, Rviz, joint_state_publisher_gui, etc. Y al final, posee un return LaunchDescription con los nodos que se desean ejecutar en ese Launch.
+</p style="text-align: justify;">
+
+<p>En este repositorio se encuentran distintos <code>Launch</code> descritos a continuación:</p>
+<ol>
+<li><strong>demo.launch.py:</strong> Archivo <code>Launch</code> general para realizar el control con el servo <em>REAL</em></li>
+<li><strong>gazebo.launch.py:</strong> Archivo <code>Launch</code> para realizar el control del servo en la simulación con <code>Gazebo</code></li>
+<li><strong>mock.launch.py:</strong> Archivo <code>Launch</code>para realizar el control en <code>Rviz</code> con un servo <em>FALSO</em> </li>
+</ol>
+<p>Estos 3 archivos <code>Launch</code> son necesarios para toda la ejecución y control del servo ya que son como una <em>secuencia</em> para el éxito del proyecto. Primero se debe asegurar que el <code>mock.launch.py</code> funcione correctamente, después de esto se debe lograr que el <code>gazebo.launch.py</code> funcione para así pasar con el <em>Hardware Component</em> al <code>demo.launch.py</code>.</p>
+<h2 id="111-mock-launch">11.1. Mock Launch</h2>
+<p>El archivo <code>mock.launch.py</code> es uno de los más importantes porque es el primer paso para el contorl de cualquier dispositivo. Al funcionar este archivo se está asegurando que el planner de <code>moveit</code> está funcionando correctamente en conjunto con el <code>URDF</code> y los <code>xacros</code>.</p>
+<p>Al inicio de cualquier <code>Launch</code> lo primero que se tiene es la importación de funciones necesarias </p>
+<pre><code class="language-python">import os
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
+from launch.conditions import IfCondition, UnlessCondition
+from launch_ros.actions import Node
+from launch.actions import ExecuteProcess
+from ament_index_python.packages import get_package_share_directory
+from moveit_configs_utils import MoveItConfigsBuilder
+</code></pre>
+<p>Luego empieza la definición de los nodos del <code>Launch</code>, comenzando con <code>moveit_config</code> y <code>run_move_group_node</code> para la configuración del <em>planner</em>: </p>
+<pre><code class="language-python">def generate_launch_description():
+
+    # Command-line arguments
+    db_arg = DeclareLaunchArgument(
+        &quot;db&quot;, default_value=&quot;False&quot;, description=&quot;Database flag&quot;
+    )
+
+    moveit_config = (
+        MoveItConfigsBuilder(&quot;servo_hardware&quot;)
+        .robot_description(file_path=&quot;config/servo_mock.urdf.xacro&quot;)
+        .robot_description_semantic(file_path=&quot;config/servo.srdf&quot;)
+        .trajectory_execution(file_path=&quot;config/moveit_controllers.yaml&quot;)
+        .to_moveit_configs()
+    )
+
+    # Start the actual move_group node/action server
+    run_move_group_node = Node(
+        package=&quot;moveit_ros_move_group&quot;,
+        executable=&quot;move_group&quot;,
+        output=&quot;screen&quot;,
+        parameters=[moveit_config.to_dict()],
+    )
+</code></pre>
+<p>Luego sigue la configuración del <code>Rviz</code></p>
+<pre><code class="language-python">    # RViz
+    rviz_base = os.path.join(
+        get_package_share_directory(&quot;servo_hardware_moveit_config&quot;), &quot;launch&quot;
+    )
+    rviz_full_config = os.path.join(rviz_base, &quot;moveit.rviz&quot;)
+
+    rviz_node = Node(
+        package=&quot;rviz2&quot;,
+        executable=&quot;rviz2&quot;,
+        name=&quot;rviz2&quot;,
+        output=&quot;log&quot;,
+        arguments=[&quot;-d&quot;, rviz_full_config],
+        parameters=[
+            moveit_config.robot_description,
+            moveit_config.robot_description_semantic,
+            moveit_config.planning_pipelines,
+            moveit_config.robot_description_kinematics,
+        ],
+    )
+</code></pre>
+<p>Luego se ingresa la posición inicial del robot y la definición del <code>robot_state_publisher</code> para realizar las transformaciones necesarias con el movimiento</p>
+<pre><code class="language-python">    # Static TF
+    static_tf = Node(
+        package=&quot;tf2_ros&quot;,
+        executable=&quot;static_transform_publisher&quot;,
+        name=&quot;static_transform_publisher&quot;,
+        output=&quot;log&quot;,
+        arguments=[&quot;0.0&quot;, &quot;0.0&quot;, &quot;0.0&quot;, &quot;0.0&quot;, &quot;0.0&quot;, &quot;0.0&quot;, &quot;world&quot;, &quot;base_link&quot;],
+    )
+
+    # Publish TF
+    robot_state_publisher = Node(
+        package=&quot;robot_state_publisher&quot;,
+        executable=&quot;robot_state_publisher&quot;,
+        name=&quot;robot_state_publisher&quot;,
+        output=&quot;both&quot;,
+        parameters=[moveit_config.robot_description],
+    )
+</code></pre>
+<p>Luego se ingresa el nodo de <code>ros2_control</code> con la ruta de los controladores necesarios </p>
+<pre><code class="language-python">    # ros2_control using FakeSystem as hardware
+    ros2_controllers_path = os.path.join(
+        get_package_share_directory(&quot;servo_hardware_moveit_config&quot;),
+        &quot;config&quot;,
+        &quot;ros2_controllers.yaml&quot;,
+    )
+    ros2_control_node = Node(
+        package=&quot;controller_manager&quot;,
+        executable=&quot;ros2_control_node&quot;,
+        parameters=[moveit_config.robot_description, ros2_controllers_path],
+        output=&quot;both&quot;,
+    )
+</code></pre>
+<p>Y la ejecución de los controladores del robot</p>
+<pre><code class="language-python">    joint_state_broadcaster_spawner = Node(
+        package=&quot;controller_manager&quot;,
+        executable=&quot;spawner&quot;,
+        arguments=[
+            &quot;joint_state_broadcaster&quot;,
+            &quot;--controller-manager&quot;,
+            &quot;/controller_manager&quot;,
+        ],
+    )
+
+    servo_controller_spawner = Node(
+        package=&quot;controller_manager&quot;,
+        executable=&quot;spawner&quot;,
+        arguments=[
+            &quot;servo_controller&quot;,
+            &quot;--controller-manager&quot;,
+            &quot;/controller_manager&quot;,
+        ],
+    )
+
+    # Warehouse mongodb server
+    db_config = LaunchConfiguration(&quot;db&quot;)
+    mongodb_server_node = Node(
+        package=&quot;warehouse_ros_mongo&quot;,
+        executable=&quot;mongo_wrapper_ros.py&quot;,
+        parameters=[
+            {&quot;warehouse_port&quot;: 33829},
+            {&quot;warehouse_host&quot;: &quot;localhost&quot;},
+            {&quot;warehouse_plugin&quot;: &quot;warehouse_ros_mongo::MongoDatabaseConnection&quot;},
+        ],
+        output=&quot;screen&quot;,
+        condition=IfCondition(db_config),
+    )
+</code></pre>
+<p>Y como se mencionó al inicio, siempre al final del <code>Launch</code> se llaman a los nodos que se desean activar</p>
+<pre><code class="language-python">    return LaunchDescription(
+        [
+            db_arg,
+            rviz_node,
+            static_tf,
+            robot_state_publisher,
+            run_move_group_node,
+            ros2_control_node,
+            mongodb_server_node,
+            joint_state_broadcaster_spawner,
+            servo_controller_spawner,
+        ]
+    )
+</code></pre>
+<h2 id="112-gazebo-launch">11.2. Gazebo Launch</h2>
+<p>En constitución, todos los launch son muy similares, se diferencian en los parámetros de los distintos nodos que contienen o que por su funcionamiento óptimo se añade un nodo adicional. En el caso del  <code>gazebo.launch.py</code>, tiene las siguientes diferencias:</p>
+<p>Primero en la importación de funciones:</p>
+<pre><code class="language-python">import os
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, RegisterEventHandler
+from launch.event_handlers import OnProcessExit
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch_ros.actions import Node
+from ament_index_python.packages import get_package_share_directory
+from moveit_configs_utils import MoveItConfigsBuilder
+</code></pre>
+<p>Luego, tiene un nodo para la ejecución de <code>Gazebo</code> y el <code>Serial Device</code> para la posición del servo</p>
+<pre><code class="language-python">    gazebo = IncludeLaunchDescription(
+    PythonLaunchDescriptionSource([os.path.join(
+        get_package_share_directory('gazebo_ros'), 'launch'), '/gazebo.launch.py']),
+    )
+
+    # Command-line arguments
+    serial_arg = DeclareLaunchArgument(
+        &quot;port&quot;, default_value=&quot;/dev/ttyACM0&quot;, description=&quot;Puerto comunicacion serial&quot;
+    )
+</code></pre>
+<p>Para la simulación se habilita el tiempo de la misma con el parámetro <code>use_sim_time</code></p>
+<pre><code class="language-python">    use_sim_time = {&quot;use_sim_time&quot;:True}
+    moveit_config = (
+        MoveItConfigsBuilder(&quot;servo_hardware&quot;)
+        .robot_description(file_path=&quot;config/servo_gazebo.urdf.xacro&quot;)
+        .robot_description_semantic(file_path=&quot;config/servo.srdf&quot;)
+        .trajectory_execution(file_path=&quot;config/moveit_controllers.yaml&quot;)
+        .robot_description_kinematics(file_path=&quot;config/kinematics.yaml&quot;)
+        .to_moveit_configs()
+    )
+    config_dict = moveit_config.to_dict()
+    config_dict.update(use_sim_time)
+</code></pre>
+<p>Se añade un nodo para spawnear la entidad en el entorno de simulación de <code>Gazebo</code></p>
+<pre><code class="language-python">    spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
+        arguments=['-topic', 'robot_description','-entity', 'servo'],
+        output='screen')
+</code></pre>
+<p>Y por último entre la ejecución de los controladores se añade un <em>delay</em> para evitar un fallo entre los mismos</p>
+<pre><code class="language-python">    #NODO DE JOINT_STATE_BROADCASTER
+
+    delayed_joint_state_broadcaster_spawner = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=spawn_entity,
+            on_exit=[joint_state_broadcaster_spawner],
+        )
+    )
+
+    #NODO DE SERVO_CONTROLLER
+
+    delayed_servo_controller_spawner = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=joint_state_broadcaster_spawner,
+            on_exit=[servo_controller_spawner],
+        )
+    )
+</code></pre>
+<h2 id="113-demo-launch">11.3. Demo Launch</h2>
+<p>El demo Launch es el archivo que se utiliza para controlar con el servo <em>REAL</em> conectado. Curiosamente, es un <code>Launch</code> muy similar al <code>mock.launch.py</code> y solo existe una diferencia entre estos dos archivos:</p>
+<pre><code class="language-python">    moveit_config = (
+        MoveItConfigsBuilder(&quot;servo_hardware&quot;)
+        .robot_description(file_path=&quot;config/servo.urdf.xacro&quot;)
+        .robot_description_semantic(file_path=&quot;config/servo.srdf&quot;)
+        .trajectory_execution(file_path=&quot;config/moveit_controllers.yaml&quot;)
+        .to_moveit_configs()
+    )
+</code></pre>
+<p>En vez de tomar <code>servo_mock.urdf.xacro</code>, se toma el <code>servo.urdf.xacro</code> de la carpeta config. Con esto ya no se estaría tomando el plugin de un servo <em>FALSO</em> sino el plugin constituido en <em>C++</em> para el servo <em>REAL</em>.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../5-4-ServoHardware%20y%20arduino/" class="btn btn-neutral float-left" title="10. Servo hardware"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../6-0-SCARA/" class="btn btn-neutral float-right" title="12. SCARA">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Derechos de autor &copy; 2023  <a href="https://github.com/Ph0n1x0">Luis Miguel Loaiza</a>,  <a href="https://github.com/David-8a">David Ochoa</a>,  <a href="https://github.com/davinsony">Davinson Castaño-Cano</a>.
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../5-4-ServoHardware%20y%20arduino/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../6-0-SCARA/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../js/mathjax.js" defer></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6" defer></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

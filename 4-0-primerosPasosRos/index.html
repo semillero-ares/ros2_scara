@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>4. Primeros pasos con ROS - Tutorial para ROS 2 Scara</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "4. Primeros pasos con ROS";
+        var mkdocs_page_input_path = "4-0-primerosPasosRos.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Tutorial para ROS 2 Scara
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../2-0-Canal%20de%20referencia/">2. Canal de referencia</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../3-0-Requisitos/">3. Requisitos software</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">4. Primeros pasos con ROS</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#41-creando-un-paquete-en-ros">4.1. Creando un paquete en ROS</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#42-clonar-un-paquete-de-github">4.2. Clonar un paquete de Github</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../4-1-URDF/">5. URDF</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-0-Servo/">6. Servo</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-1-ServoXacros/">7. Servo Xacros</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-2-ServoControllers/">8. Servo Controllers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-3-ServoMoveIt/">9. Servo Moveit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-4-ServoHardware%20y%20arduino/">10. Servo hardware</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-5-ServoLaunch/">11. Servo launch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../6-0-SCARA/">12. SCARA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../9-0-Anexos/">Anexos</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Ros2%20installation/">Ros2 Installation for Ubuntu</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Tutorial para ROS 2 Scara</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>4. Primeros pasos con ROS</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="4-primeros-pasos-con-ros">4. Primeros pasos con ROS</h1>
+<h2 id="41-creando-un-paquete-en-ros">4.1. Creando un paquete en ROS</h2>
+<p>Todo el desarrollo del proyecto será realizado en la plataforma <em>ROS</em>, en el caso de nunca haber trabajado con ROS, se recomienda seguir los tutoriales disponibles en la <a href="https://docs.ros.org/en/humble/Tutorials.html">Documentación</a> o ver el siguiente <a href="https://www.youtube.com/watch?v=Gg25GfA456o&amp;t=2336s">video</a> para obtener conceptos básicos de esta herramienta. </p>
+<p>Cuando se trabaja en ROS, básicamente se tiene una carpeta global llamada <em>Workspace</em> en la que se encuentran varias carpetas pero la más importante es una llamada <em>src</em>, allí se encuentran a su vez más carpetas conocidas como <em>packages</em> o paquetes, estos paquetes contienen todos los scripts necesarios para realizar una tarea. Por ejemplo, podemos tener un package para solamente visualizar el robot en <em>rviz</em>, o para moverlo en <em>gazebo</em>; es decir, el número de paquetes depende directamente del desarrollador. </p>
+<p>Para crear un paquete se puede utilizar un propio comando de ubuntu <code>ros2 pkg create my_first_package ...</code> estos paquetes pueden crearse ya sea en <em>Python</em> o en <em>C++</em>, esto dependerá del desarrollador; además, se deben especificar las dependecias del paquete para no ocasionar ningún error; sin embargo, en el caso de no especificarlas completamente, se pueden añadir después sin ningún problema. En este orden de ideas para comenzar con la creacion de todo se seguirían los siguientes pasos:</p>
+<ol>
+<li>Crear Workspace <code>mkdir robot_ws</code> </li>
+<li>Crear carpeta src <code>cd robot_ws</code>  <code>mkdir src</code>  <code>cd src</code> </li>
+<li>Crear paquete <code>ros2 pkg create my_first_package --build-type ament_python --dependencies rclpy</code></li>
+</ol>
+<p>Con esto ya tendrías el paquete creado, sería un paquete vacío hasta el momento. Lo siguiente sería compilar el paquete, al compilarlo se crearán varias carpetas en el workspace: <em>log</em>, <em>install</em> y <em>build</em>, para compilar basta con escribir el comando <code>colcon build</code>, en el caso de no tenerlo instalado simplemente sigue el comando que te recomeinda la terminal de ubuntu. Cabe resaltar que todo esto puedes hacerlo desde la terminal nativa de WSL o para mas facilidad desde <em>Visual Studio Code</em> al abrir una de tipo <em>Ubuntu(WSL)</em>.</p>
+<h2 id="42-clonar-un-paquete-de-github">4.2. Clonar un paquete de Github</h2>
+<p>A pesar de que el proceso anterior no sea tan tedioso, otra opción para crear un paquete puede ser utilizando una plantilla de Github y adaptarla a tus necesidades. Para esto basta con seguir los siguientes pasos: </p>
+<ol>
+<li>Crear Workspace <code>mkdir robot_ws</code> </li>
+<li>Crear carpeta src <code>cd robot_ws</code> <code>mkdir src</code> <code>cd src</code> </li>
+<li>Clonar <code>git clone https://github.com/Ph0n1x0/my_bot.git</code>, esta plantilla es la utilizada en el <a href="https://www.youtube.com/watch?v=OWeLUSzxMsw&amp;list=PLunhqkrRNRhYAffV8JDiFOatQXuU-NnxT">canal de referencia</a> previamente mencionado.</li>
+</ol>
+<p>Con esto ya tendrías una plantilla lista para modificar. </p>
+<p>Es importante mencionar que cada que cambies script del paquete debes usar el comando <code>colcon build</code> y <code>source install/setup.bash</code></p>
+<p><strong>TIP:</strong> Si utilizas el comando <code>colcon build  --symlink-install</code> compilará automaticamente los cambios en los scripts, solamente <em>NO</em> compilará cuando crees nuevos documentos o archivos.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../3-0-Requisitos/" class="btn btn-neutral float-left" title="3. Requisitos software"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../4-1-URDF/" class="btn btn-neutral float-right" title="5. URDF">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Derechos de autor &copy; 2023  <a href="https://github.com/Ph0n1x0">Luis Miguel Loaiza</a>,  <a href="https://github.com/David-8a">David Ochoa</a>,  <a href="https://github.com/davinsony">Davinson Castaño-Cano</a>.
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../3-0-Requisitos/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../4-1-URDF/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../js/mathjax.js" defer></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6" defer></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

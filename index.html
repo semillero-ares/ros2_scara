@@ -8,20 +8,21 @@
     <title>Tutorial para ROS 2 Scara</title>
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Welcome to MkDocs";
+        var mkdocs_page_name = "Home";
         var mkdocs_page_input_path = "index.md";
         var mkdocs_page_url = null;
       </script>
     
+    <script src="js/jquery-3.6.0.min.js" defer></script>
     <!--[if lt IE 9]>
       <script src="js/html5shiv.min.js"></script>
     <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-      <script>hljs.highlightAll();</script> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
 </head>
 
 <body class="wy-body-for-nav" role="document">
@@ -33,20 +34,64 @@
           <a href="." class="icon icon-home"> Tutorial para ROS 2 Scara
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
-      <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" title="Escriba el término de búsqueda aquí" />
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegación">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href=".">Welcome to MkDocs</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#project-layout">Project layout</a>
-    </li>
     </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="2-0-Canal%20de%20referencia/">2. Canal de referencia</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="3-0-Requisitos/">3. Requisitos software</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="4-0-primerosPasosRos/">4. Primeros pasos con ROS</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="4-1-URDF/">5. URDF</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="5-0-Servo/">6. Servo</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="5-1-ServoXacros/">7. Servo Xacros</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="5-2-ServoControllers/">8. Servo Controllers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="5-3-ServoMoveIt/">9. Servo Moveit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="5-4-ServoHardware%20y%20arduino/">10. Servo hardware</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="5-5-ServoLaunch/">11. Servo launch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="6-0-SCARA/">12. SCARA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="9-0-Anexos/">Anexos</a>
                 </li>
               </ul>
               <ul>
@@ -58,7 +103,7 @@
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Menú de navegación en móvil">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href=".">Tutorial para ROS 2 Scara</a>
         
@@ -66,8 +111,8 @@
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="." class="icon icon-home" aria-label="Documentos"></a></li>
-      <li class="breadcrumb-item active">Welcome to MkDocs</li>
+    <li><a href="." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Home</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -76,26 +121,56 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="welcome-to-mkdocs">Welcome to MkDocs</h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands</h2>
-<ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
-</ul>
-<h2 id="project-layout">Project layout</h2>
-<pre><code>mkdocs.yml    # The configuration file.
-docs/
-    index.md  # The documentation homepage.
-    ...       # Other markdown pages, images and other files.
-</code></pre>
+                <p><center></p>
+<h2 id="brazo-robotico-controlado-por-ros-2"><strong>BRAZO ROBÓTICO CONTROLADO POR ROS 2</strong></h2>
+<h1 id="11-introduccion">1.1. Introducción</h1>
+<p></center> </p>
+<p style="text-align: justify;"> 
+Un brazo robótico SCARA 4 DOF es un tipo de robot industrial utilizado para la automatización de procesos y la fabricación de artefactos. Esta máquina será controlada por una plataforma de código llamada ROS 2 que es una herramienta de desarrollo de software empleada en la robótica.
+</p style="text-align: justify;">
+<p><center> </p>
+<h1 id="12-descripcion-del-proyecto">1.2. Descripción del proyecto</h1>
+<p></center>   </p>
+<p style="text-align: justify;"> 
+Este documento explora las posibilidades de trabajar con un marco de robótica, concretamente ROS 2, para interconectar diversas posibilidades en este complejo ámbito. ROS 2 ofrece facilidad para conectar sistemas de detección y actuación, facilitando el procesamiento de datos para una mejor toma de decisiones y acelerando los procesos. La segunda versión de ROS 2 es la preferida, ya que recibirá los comentarios de los creadores, lo que la convertirá en el futuro del sector. ROS 2 también ofrece descentralización, permitiendo que múltiples nodos con la misma importancia trabajen juntos. Para sumergirse mejor en ROS, es esencial trabajar con un modelo físico, incluidos los microcontroladores y la visión robótica, utilizando el robot industrial que se encuentra en la Universidad EAFIT bloque 19 planta 2.
+</p style="text-align: justify;">
+<p><center>
+<img alt="" src="img/brazo.png" /></p>
+<h1 id="13-objetivos-de-proyecto">1.3. Objetivos de proyecto</h1>
+<p></center></p>
+<p style="text-align: justify;"> 
+-       Simular el robot industrial encontrado en el segundo piso del bloque 19 de la Universidad en el ambiente de simulación Gazebo 2. <br> 
+-       Tener un modelo preciso con respecto al original para tener una simulación concreta del robot.<br> 
+-       Crear las diferentes poses necesarias para tener un proceso industrial en la mesa de trabajo utilizando una máquina de estados finitos (MEF). <br> 
+-       Implementar la visión robótica en el equipo para mejorar la precisión del proceso. <br> 
+</p style="text-align: justify;">
+
+<p><center></p>
+<h1 id="14-etapas-del-proyecto">1.4. Etapas del proyecto</h1>
+<p></center></p>
+<p style="text-align: justify;"> 
+-       Proceso de modelado y simulación. <br>
+-       Caracterización del robot SCARA. <br>
+-       Conexión con ROS y Arduino. <br>
+-       Visión robótica para procesos complejos. <br>
+</p style="text-align: justify;">
+
+<p><center></p>
+<h1 id="requisitos-principales-del-proyecto">Requisitos principales del proyecto</h1>
+<p></center></p>
+<p style="text-align: justify;"> 
+- Se requieren conocimientos básicos de _ROS 2_. <br>
+- Herramientas de visualización gráfica como: _gazebo, rviz, moveit, entre otras. <br> <br>
+
+En el presente documento se encuentra la bitácora con todos los pasos para lograr el objetivo del proyecto, el repositorio de _github_ se encuentra a continuación:
+</p style="text-align: justify;">
+
+<p><a href="https://github.com/semillero-ares/ros2_scara.git">Repositorio Github</a> </p>
               
             </div>
           </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Navegación de pie de página">
-        <a href="Ros2%20installation/" class="btn btn-neutral float-right" title="Ros2 Installation for Ubuntu">Siguiente <span class="icon icon-circle-arrow-right"></span></a>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="2-0-Canal%20de%20referencia/" class="btn btn-neutral float-right" title="2. Canal de referencia">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -106,7 +181,7 @@ docs/
 </p>
   </div>
 
-  Construído con <a href="https://www.mkdocs.org/">MkDocs</a> usando <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provisto por <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
           
         </div>
@@ -116,33 +191,32 @@ docs/
 
   </div>
 
-  <div class="rst-versions" role="note" aria-label="Versiones">
+  <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
     
-      <span><a href="Ros2%20installation/" style="color: #fcfcfc">Siguiente &raquo;</a></span>
+      <span><a href="2-0-Canal%20de%20referencia/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <script>var base_url = ".";</script>
-    <script src="js/theme_extra.js"></script>
-    <script src="js/theme.js"></script>
-      <script src="js/mathjax.js"></script>
-      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-      <script src="search/main.js"></script>
-    <script>
-        jQuery(function () {
+    <script>var base_url = '.';</script>
+    <script src="js/theme_extra.js" defer></script>
+    <script src="js/theme.js" defer></script>
+      <script src="js/mathjax.js" defer></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6" defer></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
             SphinxRtdTheme.Navigation.enable(true);
-        });
+        };
     </script>
 
 </body>
 </html>
 
 <!--
-MkDocs version : 1.5.3
-Build Date UTC : 2023-10-26 15:36:44.898789+00:00
+MkDocs version : 1.4.2
+Build Date UTC : 2023-10-31 18:09:57.332709+00:00
 -->

@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>5. URDF - Tutorial para ROS 2 Scara</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "5. URDF";
+        var mkdocs_page_input_path = "4-1-URDF.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Tutorial para ROS 2 Scara
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../2-0-Canal%20de%20referencia/">2. Canal de referencia</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../3-0-Requisitos/">3. Requisitos software</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../4-0-primerosPasosRos/">4. Primeros pasos con ROS</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">5. URDF</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#51-setup">5.1. Setup</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#52-ejemplo-urdf-con-robot-diferencial">5.2. Ejemplo URDF con Robot diferencial</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#521-creando-un-archivo-urdf">5.2.1. Creando un archivo URDF</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#53-ejemplo-servomotor-urdf-con-plugin-de-solidworks">5.3. Ejemplo Servomotor URDF con Plugin de SolidWorks</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-0-Servo/">6. Servo</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-1-ServoXacros/">7. Servo Xacros</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-2-ServoControllers/">8. Servo Controllers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-3-ServoMoveIt/">9. Servo Moveit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-4-ServoHardware%20y%20arduino/">10. Servo hardware</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-5-ServoLaunch/">11. Servo launch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../6-0-SCARA/">12. SCARA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../9-0-Anexos/">Anexos</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Ros2%20installation/">Ros2 Installation for Ubuntu</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Tutorial para ROS 2 Scara</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>5. URDF</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="5-urdf">5. URDF</h1>
+<p style="text-align: justify;">
+Un archivo URDF es un archivo xacro que describe un componente de un robot, ya sea su descripción puramente física, inercial, de controladores, etc. El que toma más tiempo siempre es el URDF general del robot porque describe toda la configuración y topología del mismo, para obtener este archivo se pueden tomar dos alternativas:<br><br>
+
+1. Crear URDF con figuras básicas como cubos y cilindros, este método suele ser óptimo para robots sencillos como un servomotor. <br>
+2. Extraer URDF de un software de modelación como _SolidWorks_, para esto se debe tener el ensamble total de la máquina/robot que se desea controlar, este método es óptimo para robots más complejos. <br><br>
+
+En este caso se mostrarán brevemente los pasos que se llevaron en el canal de referencia para hacer el URDF del robot diferencial con figuras geométricas y un ejemplo en solidworks con un servomotor extraído de _Grabcad_.<br><br>
+</p style="text-align: justify;">
+
+<h2 id="51-setup">5.1. Setup</h2>
+<p style="text-align: justify;">
+Para crear el archivo URDF, debe cumplir los siguientes pasos:
+</p style="text-align: justify;">
+<ol>
+<li>Tener ROS2 instalado</li>
+<li>Tener creado un workspace</li>
+<li>Tener copiada la plantilla de Github</li>
+<li>Instalar xacro:
+<code>sudo apt install ros-humble-xacro</code></li>
+<li>Instalar joint state publisher:
+<code>sudo apt install ros-humble-joint-state-publisher-gui</code></li>
+</ol>
+<p style="text-align: justify;">
+Los archivos de configuración de un robot se escriben en _xacro_, estos archivos son conocidos como archivos de descripción del robot, los documentos se procesan mediante _xacro_ obteniendo un solo archivo URDF que llega a un nodo llamado _robot state publisher_, este nodo convierte los archivos en un _/robotdescription_ y genera todas las transformaciones de las juntas (joints) mediante  _/tf_. Con esto, si deseamos mover las articulaciones del robot podemos utilizar _joint state publisher gui_ para visualizar el funcionamiento del robot.
+</p style="text-align: justify;">
+
+<h2 id="52-ejemplo-urdf-con-robot-diferencial">5.2. Ejemplo URDF con Robot diferencial</h2>
+<p style="text-align: justify;">
+Un robot diferencial es un robot que principalmente está formado por dos ruedas conocidas como _driven wheels_ (una en cada lado), estas dos ruedas son responables de _TODO_ el movimiento del robot; por lo que, todas las demás solamente son para _mantener estable_ el robot conocidas como _caster wheels_.
+</p style="text-align: justify;">
+<p><center>
+<img alt="" src="../img/diff_robot.png" />
+</center></p>
+<p style="text-align: justify;">
+Con esta imagen se puede decir que el robot en realidad puede llegar a ser una _caja_ que tiene a sus lados un par de ruedas de dirección junto con otra rueda de estabilización. Para el comienzo del desarrollo del robot se plantean dos cosas:
+</p style="text-align: justify;">
+
+<ol>
+<li>El enlace raíz (Root link) debe llamarse <em>base link</em></li>
+<li>La orientación de las uniones debe ser: +x delante, +y izquierda, +z arriba</li>
+</ol>
+<h3 id="521-creando-un-archivo-urdf">5.2.1. Creando un archivo URDF</h3>
+<p>En la plantilla clonada anteriormente se tiene el siguiente archivo inicial de URDF:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;robot xmlns:xacro=&quot;http://www.ros.org/wiki/xacro&quot; name=&quot;robot&quot;&gt;
+
+    &lt;!-- Example link --&gt;
+    &lt;link name=&quot;base_link&quot;&gt;
+
+</code></pre>
+<p style="text-align: justify;">
+Con este URDF de esta manera al utilizar el comando `ros2 launch my_bot rsp.launch.py` se podrá visualizar el único link que tiene especificado el URDF. Lo que normalmente se hace es que en un archivo xacro se incluyen demás archivos xacro que contienen distinta información como el URDF, el controlador, componentes como cámara o dispositivos, etc. Por lo que este archivo base se puede modificar de la siguiente manera:
+</p style="text-align: justify;">
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;robot xmlns:xacro=&quot;http://www.ros.org/wiki/xacro&quot;  name=&quot;robot&quot;&gt;
+
+    &lt;xacro:include filename=&quot;robot_core.xacro&quot; /&gt;
+
+&lt;/robot&gt;
+</code></pre>
+<p style="text-align: justify;">
+Este archivo estará llamando a `robot_core.xacro`, un xacro creado en la misma carpeta que contendrá el URDF del robot. Con esto ya se puede crear el archivo URDF del robot, primero se crean los materiales del robot de esta manera: 
+</p style="text-align: justify;">
+
+<pre><code class="language-xml">    &lt;material name=&quot;white&quot;&gt;
+        &lt;color rgba=&quot;1 1 1 1&quot; /&gt;
+    &lt;/material&gt;
+
+    &lt;material name=&quot;orange&quot;&gt;
+        &lt;color rgba=&quot;1 0.3 0.1 1&quot;/&gt;
+    &lt;/material&gt;
+
+    &lt;material name=&quot;blue&quot;&gt;
+        &lt;color rgba=&quot;0.2 0.2 1 1&quot;/&gt;
+    &lt;/material&gt;
+
+    &lt;material name=&quot;black&quot;&gt;
+        &lt;color rgba=&quot;0 0 0 1&quot;/&gt;
+    &lt;/material&gt;
+</code></pre>
+<p style="text-align: justify;">
+Luego empieza _TODA_ la constitución del robot, esto quiere decir todos los _joints_ y _links_ que este mismo contiene comenzando por el _base link_ y _chassis_:
+</p style="text-align: justify;">
+
+<pre><code class="language-xml">    &lt;!-- BASE LINK --&gt;
+
+    &lt;link name=&quot;base_link&quot;&gt;
+
+    &lt;/link&gt;
+</code></pre>
+<p>Los <em>joints</em> pueden ser de distintos tipos, tales como: <em>prismatic, revolute, fixed, continuous, etc</em>; además, se definen con un <em>parent</em>, <em>child</em> y <em>origin</em>:</p>
+<pre><code class="language-xml">    &lt;!-- CHASSIS LINK --&gt;
+
+    &lt;joint name=&quot;chassis_joint&quot; type=&quot;fixed&quot;&gt;
+        &lt;parent link=&quot;base_link&quot;/&gt;
+        &lt;child link=&quot;chassis&quot;/&gt;
+        &lt;origin xyz=&quot;-0.1 0 0&quot;/&gt;
+    &lt;/joint&gt;
+</code></pre>
+<p style="text-align: justify;">
+Luego de definir el joint se procede a definir el link del robot en el que primero se define el _visual_ como una caja de 300x300x150mm (todos los parámetros de ROS se encuentran siempre en sistema métrico internacional) con su respectivo origen y material previamente definido. Luego, se define la _collision_ , que basicamente es el mismo contenido del _visual_ sin el _material_; por último, se define su inercia, en este caso se está incluyendo otro archivo xacro en donde se define una macro llamada `inertial_box`, esta macro se define en otro archivo que se llamará `inertial_macros.xacro` y se incluirá de igual manera que se incluyó el `robot_core.xacro`
+</p style="text-align: justify;">
+
+<pre><code class="language-xml">    &lt;!-- ESTO IRÍA AL INICIO DEL CÓDIGO URDF --&gt;
+
+     &lt;xacro:include filename=&quot;inertial_macros.xacro&quot;/&gt;
+</code></pre>
+<pre><code class="language-xml">    &lt;!-- Archivo de inertial_macros --&gt;
+
+     &lt;?xml version=&quot;1.0&quot;?&gt;
+    &lt;robot xmlns:xacro=&quot;http://www.ros.org/wiki/xacro&quot; &gt;
+
+    &lt;!-- Specify some standard inertial calculations https://en.wikipedia.org/wiki/List_of_moments_of_inertia --&gt;
+    &lt;!-- These make use of xacro's mathematical functionality --&gt;
+
+    &lt;xacro:macro name=&quot;inertial_sphere&quot; params=&quot;mass radius *origin&quot;&gt;
+        &lt;inertial&gt;
+            &lt;xacro:insert_block name=&quot;origin&quot;/&gt;
+            &lt;mass value=&quot;${mass}&quot; /&gt;
+            &lt;inertia ixx=&quot;${(2/5) * mass * (radius*radius)}&quot; ixy=&quot;0.0&quot; ixz=&quot;0.0&quot;
+                    iyy=&quot;${(2/5) * mass * (radius*radius)}&quot; iyz=&quot;0.0&quot;
+                    izz=&quot;${(2/5) * mass * (radius*radius)}&quot; /&gt;
+        &lt;/inertial&gt;
+    &lt;/xacro:macro&gt;  
+
+
+    &lt;xacro:macro name=&quot;inertial_box&quot; params=&quot;mass x y z *origin&quot;&gt;
+        &lt;inertial&gt;
+            &lt;xacro:insert_block name=&quot;origin&quot;/&gt;
+            &lt;mass value=&quot;${mass}&quot; /&gt;
+            &lt;inertia ixx=&quot;${(1/12) * mass * (y*y+z*z)}&quot; ixy=&quot;0.0&quot; ixz=&quot;0.0&quot;
+                    iyy=&quot;${(1/12) * mass * (x*x+z*z)}&quot; iyz=&quot;0.0&quot;
+                    izz=&quot;${(1/12) * mass * (x*x+y*y)}&quot; /&gt;
+        &lt;/inertial&gt;
+    &lt;/xacro:macro&gt;
+
+
+    &lt;xacro:macro name=&quot;inertial_cylinder&quot; params=&quot;mass length radius *origin&quot;&gt;
+        &lt;inertial&gt;
+            &lt;xacro:insert_block name=&quot;origin&quot;/&gt;
+            &lt;mass value=&quot;${mass}&quot; /&gt;
+            &lt;inertia ixx=&quot;${(1/12) * mass * (3*radius*radius + length*length)}&quot; ixy=&quot;0.0&quot; ixz=&quot;0.0&quot;
+                    iyy=&quot;${(1/12) * mass * (3*radius*radius + length*length)}&quot; iyz=&quot;0.0&quot;
+                    izz=&quot;${(1/2) * mass * (radius*radius)}&quot; /&gt;
+        &lt;/inertial&gt;
+    &lt;/xacro:macro&gt;
+
+
+&lt;/robot&gt;
+</code></pre>
+<pre><code class="language-xml">    &lt;link name=&quot;chassis&quot;&gt;
+        &lt;visual&gt;
+            &lt;origin xyz=&quot;0.15 0 0.075&quot;/&gt;
+            &lt;geometry&gt;
+                &lt;box size=&quot;0.3 0.3 0.15&quot;/&gt;
+            &lt;/geometry&gt;
+            &lt;material name=&quot;white&quot;/&gt;
+        &lt;/visual&gt;
+        &lt;collision&gt;
+            &lt;origin xyz=&quot;0.15 0 0.075&quot;/&gt;
+            &lt;geometry&gt;
+                &lt;box size=&quot;0.3 0.3 0.15&quot;/&gt;
+            &lt;/geometry&gt;
+        &lt;/collision&gt;
+        &lt;xacro:inertial_box mass=&quot;0.5&quot; x=&quot;0.3&quot; y=&quot;0.3&quot; z=&quot;0.15&quot;&gt;
+            &lt;origin xyz=&quot;0.15 0 0.075&quot; rpy=&quot;0 0 0&quot;/&gt;
+        &lt;/xacro:inertial_box&gt;
+    &lt;/link&gt;
+</code></pre>
+<p style="text-align: justify;">
+De esta manera se sigue con las dos ruedas del robot, solamente que los joints serán de tipo _continuous_ y en vez de utilizar una geometría de _box_ se utilizará un _cylinder_ (además de definir origines e inercias). 
+</p style="text-align: justify;">
+
+<pre><code class="language-xml">    &lt;!-- LEFT WHEEL LINK --&gt;
+
+    &lt;joint name=&quot;left_wheel_joint&quot; type=&quot;continuous&quot;&gt;
+        &lt;parent link=&quot;base_link&quot;/&gt;
+        &lt;child link=&quot;left_wheel&quot;/&gt;
+        &lt;origin xyz=&quot;0 0.175 0&quot; rpy=&quot;-${pi/2} 0 0&quot; /&gt;
+        &lt;axis xyz=&quot;0 0 1&quot;/&gt;
+    &lt;/joint&gt;
+
+    &lt;link name=&quot;left_wheel&quot;&gt;
+        &lt;visual&gt;
+            &lt;geometry&gt;
+                &lt;cylinder radius=&quot;0.05&quot; length=&quot;0.04&quot;/&gt;
+            &lt;/geometry&gt;
+            &lt;material name=&quot;blue&quot;/&gt;
+        &lt;/visual&gt;
+        &lt;collision&gt;
+            &lt;geometry&gt;
+                &lt;cylinder radius=&quot;0.05&quot; length=&quot;0.04&quot;/&gt;
+            &lt;/geometry&gt;
+        &lt;/collision&gt;
+        &lt;xacro:inertial_cylinder mass=&quot;0.1&quot; length=&quot;0.04&quot; radius=&quot;0.05&quot;&gt;
+            &lt;origin xyz=&quot;0 0 0&quot; rpy=&quot;0 0 0&quot;/&gt;
+        &lt;/xacro:inertial_cylinder&gt;
+    &lt;/link&gt;
+
+    &lt;!-- RIGHT WHEEL LINK --&gt;
+
+    &lt;joint name=&quot;right_wheel_joint&quot; type=&quot;continuous&quot;&gt;
+        &lt;parent link=&quot;base_link&quot;/&gt;
+        &lt;child link=&quot;right_wheel&quot;/&gt;
+        &lt;origin xyz=&quot;0 -0.175 0&quot; rpy=&quot;${pi/2} 0 0&quot; /&gt;
+        &lt;axis xyz=&quot;0 0 -1&quot;/&gt;
+    &lt;/joint&gt;
+
+    &lt;link name=&quot;right_wheel&quot;&gt;
+        &lt;visual&gt;
+            &lt;geometry&gt;
+                &lt;cylinder radius=&quot;0.05&quot; length=&quot;0.04&quot;/&gt;
+            &lt;/geometry&gt;
+            &lt;material name=&quot;blue&quot;/&gt;
+        &lt;/visual&gt;
+        &lt;collision&gt;
+            &lt;geometry&gt;
+                &lt;cylinder radius=&quot;0.05&quot; length=&quot;0.04&quot;/&gt;
+            &lt;/geometry&gt;
+        &lt;/collision&gt;
+        &lt;xacro:inertial_cylinder mass=&quot;0.1&quot; length=&quot;0.04&quot; radius=&quot;0.05&quot;&gt;
+            &lt;origin xyz=&quot;0 0 0&quot; rpy=&quot;0 0 0&quot;/&gt;
+        &lt;/xacro:inertial_cylinder&gt;
+    &lt;/link&gt;
+</code></pre>
+<p>Luego de misma manera con la <em>caster wheel</em> con un joint tipo <em>fixed</em> y una geometría de <em>sphere</em>:</p>
+<pre><code class="language-xml">    &lt;!-- CASTER WHEEL LINK --&gt;
+
+    &lt;joint name=&quot;caster_wheel_joint&quot; type=&quot;fixed&quot;&gt;
+        &lt;parent link=&quot;chassis&quot;/&gt;
+        &lt;child link=&quot;caster_wheel&quot;/&gt;
+        &lt;origin xyz=&quot;0.24 0 0&quot;/&gt;
+    &lt;/joint&gt;
+
+
+    &lt;link name=&quot;caster_wheel&quot;&gt;
+        &lt;visual&gt;
+            &lt;geometry&gt;
+                &lt;sphere radius=&quot;0.05&quot;/&gt;
+            &lt;/geometry&gt;
+            &lt;material name=&quot;black&quot;/&gt;
+        &lt;/visual&gt;
+        &lt;collision&gt;
+            &lt;geometry&gt;
+                &lt;sphere radius=&quot;0.05&quot;/&gt;
+            &lt;/geometry&gt;
+        &lt;/collision&gt;
+        &lt;xacro:inertial_sphere mass=&quot;0.1&quot; radius=&quot;0.05&quot;&gt;
+            &lt;origin xyz=&quot;0 0 0&quot; rpy=&quot;0 0 0&quot;/&gt;
+        &lt;/xacro:inertial_sphere&gt;
+    &lt;/link&gt;
+
+
+&lt;/robot&gt;
+</code></pre>
+<p>Con todo esto ya creado ya se podría <em>visualizar</em> el robot sin ningún problema, solo haría falta compilar <code>colcon build --symlink-install</code> y <code>source install/setup.bash</code>. <br><br></p>
+<p>Después de esto al correr el comando <code>ros2 launch my_bot rsp.launch.py</code> y en una terminal nueva <code>ros2 run joint_state_publisher_gui joint_state_publisher_gui</code> se podría visualizar el robot y mover las ruedas según la definición del URDF. </p>
+<h2 id="53-ejemplo-servomotor-urdf-con-plugin-de-solidworks">5.3. Ejemplo Servomotor URDF con Plugin de SolidWorks</h2>
+<p style="text-align: justify;"> 
+Un servomotor SG90 es un tipo de motor eléctrico que se utiliza para controlar la posición, velocidad y aceleración con precisión; este elemento al tener 1 DOF permite conocer e identificar los pasos a realizar para controlar el robot SCARA al tener una estructura muy similar.<br>
+</p style="text-align: justify;">
+<p><center>
+<img alt="" src="../img/SG90.jpg" />
+</center></p>
+<p>Para realizar una simulación del elemento en movimiento se requiere de un URDF y si se tiene el elemento modelado, SolidWorks posee un plugin que brinda un archivo URDF. <br></p>
+<p><center></p>
+<p><strong>PASOS</strong>
+</center></p>
+<ol>
+<li>
+<p>Instalar sw2urdfSETUP.exe para la versión de SolidWorks que se tenga instalado. <a href="https://github.com/ros/solidworks_urdf_exporter/releases">Instalar plugin de SolidWorks</a></p>
+</li>
+<li>
+<p>Abrir la pieza en SolidWorks.</p>
+</li>
+<li>
+<p>En la parte superior derecha de la pantalla, se busca la extensión.
+<center>
+<img alt="" src="../img/solid.png" />
+</center></p>
+</li>
+<li>
+<p>Se definen las barras o eslabones que presenta el elemento, en este caso, se fja la base como la barra de tierra (inmovil), y se definen los eslabones y pares cinemáticos como las partes moviles.
+<center>
+<img alt="" src="../img/servo1.png" />
+</center></p>
+</li>
+<li>
+<p>Se presiona la opción de "Preview and export URDF" y se definen las variablees que posee el elemento, luego se genera el URDF y las mallas del elemento.
+<center>
+<img alt="" src="../img/servo2.png" />
+</center></p>
+</li>
+</ol>
+<p><strong> EJEMPLO DEL URDF EXPORTADO</strong></p>
+<pre><code>    &lt;?xml version="1.0"?&gt;
+
+    &lt;robot
+    name="servo7"&gt;
+    &lt;link
+        name="base"&gt;
+        &lt;inertial&gt;
+        &lt;origin
+            xyz="-6.7573E-06 0.011598 5.6311E-08"
+            rpy="6 0 0" /&gt;
+        &lt;mass
+            value="0.0064019" /&gt;
+        &lt;inertia
+            ixx="3.4577E-07"
+            ixy="-2.7463E-10"
+            ixz="4.3013E-12"
+            iyy="3.8183E-07"
+            iyz="2.2886E-12"
+            izz="5.7895E-07" /&gt;
+        &lt;/inertial&gt;
+        &lt;visual&gt;
+        &lt;origin
+            xyz="0 0 0"
+            rpy="0 0 0" /&gt;
+        &lt;geometry&gt;
+            &lt;mesh
+            filename="package://modelo_servo/meshes/base.STL" /&gt;
+        &lt;/geometry&gt;
+        &lt;material
+            name="acrylic"&gt;
+            &lt;color
+            rgba="0.0 0.0 1.0 1.0" /&gt;
+        &lt;/material&gt;
+        &lt;/visual&gt;
+        &lt;collision&gt;
+        &lt;origin
+            xyz="0 0 0"
+            rpy="0 0 0" /&gt;
+        &lt;geometry&gt;
+            &lt;mesh
+            filename="package://modelo_servo/meshes/base.STL" /&gt;
+        &lt;/geometry&gt;
+        &lt;/collision&gt;
+    &lt;/link&gt;
+    &lt;link
+        name="plu_chasis"&gt;
+        &lt;inertial&gt;
+        &lt;origin
+            xyz="0.001818 -5.3648E-05 -0.0015"
+            rpy="0 0 0" /&gt;
+        &lt;mass
+            value="0.00035175" /&gt;
+        &lt;inertia
+            ixx="3.232E-09"
+            ixy="1.5994E-25"
+            ixz="1.252E-25"
+            iyy="7.3777E-09"
+            iyz="-1.8232E-25"
+            izz="1.0082E-08" /&gt;
+        &lt;/inertial&gt;
+        &lt;visual&gt;
+        &lt;origin
+            xyz="0 0 0"
+            rpy="0 0 0" /&gt;
+        &lt;geometry&gt;
+            &lt;mesh
+            filename="package://modelo_servo/meshes/plu_chasis.STL" /&gt;
+        &lt;/geometry&gt;
+        &lt;material
+            name=""&gt;
+            &lt;color
+            rgba="0.0 0.0 1.0 1.0" /&gt;
+        &lt;/material&gt;
+        &lt;/visual&gt;
+        &lt;collision&gt;
+        &lt;origin
+            xyz="0 0 0"
+            rpy="0 0 0" /&gt;
+        &lt;geometry&gt;
+            &lt;mesh
+            filename="package://modelo_servo/meshes/plu_chasis.STL" /&gt;
+        &lt;/geometry&gt;
+        &lt;/collision&gt;
+    &lt;/link&gt;
+    &lt;joint
+        name="joint1"
+        type="fixed"&gt;
+        &lt;origin
+        xyz="-0.00409 0.0227 0"
+        rpy="1.5708 -0.007929 0" /&gt;
+        &lt;parent
+        link="base" /&gt;
+        &lt;child
+        link="plu_chasis" /&gt;
+        &lt;axis
+        xyz="0 0 0" /&gt;
+    &lt;/joint&gt;
+    &lt;link
+        name="eje"&gt;
+        &lt;inertial&gt;
+        &lt;origin
+            xyz="6.3741E-05 0.0031 4.638E-05"
+            rpy="0 0 0" /&gt;
+        &lt;mass
+            value="0.00010538" /&gt;
+        &lt;inertia
+            ixx="6.1365E-10"
+            ixy="-1.9311E-27"
+            ixz="-2.6707E-26"
+            iyy="3.168E-10"
+            iyz="-1.2874E-27"
+            izz="6.1365E-10" /&gt;
+        &lt;/inertial&gt;
+        &lt;visual&gt;
+        &lt;origin
+            xyz="0 0 0"
+            rpy="0 0 0" /&gt;
+        &lt;geometry&gt;
+            &lt;mesh
+            filename="package://modelo_servo/meshes/eje.STL" /&gt;
+        &lt;/geometry&gt;
+        &lt;material
+            name="acrylic"&gt;
+            &lt;color
+            rgba="0.5 0.5 0.5 1.0" /&gt;
+        &lt;/material&gt;
+        &lt;/visual&gt;
+        &lt;collision&gt;
+        &lt;origin
+            xyz="0 0 0"
+            rpy="0 0 0" /&gt;
+        &lt;geometry&gt;
+            &lt;mesh
+            filename="package://modelo_servo/meshes/eje.STL" /&gt;
+        &lt;/geometry&gt;
+        &lt;/collision&gt;
+    &lt;/link&gt;
+    &lt;joint
+        name="joint2"
+        type="continuous"&gt;
+        &lt;origin
+        xyz="-0.00415 0.0232 -0.0001"
+        rpy="0 0 0" /&gt;
+        &lt;parent
+        link="base" /&gt;
+        &lt;child
+        link="eje" /&gt;
+        &lt;axis
+        xyz="0 1 0" /&gt;
+        &lt;dynamics
+        friction="0.1" /&gt;
+    &lt;/joint&gt;
+    &lt;link
+        name="plumilla"&gt;
+        &lt;inertial&gt;
+        &lt;origin
+            xyz="0.0042098 5.9689E-05 -0.0021514"
+            rpy="0 0 0" /&gt;
+        &lt;mass
+            value="0.00011261" /&gt;
+        &lt;inertia
+            ixx="4.3387E-10"
+            ixy="-6.7617E-11"
+            ixz="2.3634E-10"
+            iyy="2.941E-09"
+            iyz="6.3694E-12"
+            izz="3.2007E-09" /&gt;
+        &lt;/inertial&gt;
+        &lt;visual&gt;
+        &lt;origin
+            xyz="0 0 0"
+            rpy="0 0 0" /&gt;
+        &lt;geometry&gt;
+            &lt;mesh
+            filename="package://modelo_servo/meshes/plumilla.STL" /&gt;
+        &lt;/geometry&gt;
+        &lt;material
+            name="acrylic"&gt;
+            &lt;color
+            rgba="1.0 0.41 0.71 1.0" /&gt;
+        &lt;/material&gt;
+        &lt;/visual&gt;
+        &lt;collision&gt;
+        &lt;origin
+            xyz="0 0 0"
+            rpy="0 0 0" /&gt;
+        &lt;geometry&gt;
+            &lt;mesh
+            filename="package://modelo_servo/meshes/plumilla.STL" /&gt;
+        &lt;/geometry&gt;
+        &lt;/collision&gt;
+    &lt;/link&gt;
+    &lt;joint
+        name="joint3"
+        type="fixed"&gt;
+        &lt;origin
+        xyz="6E-05 0.0034 0.0001"
+        rpy="1.5708 -0.054172 0" /&gt;
+        &lt;parent
+        link="eje" /&gt;
+        &lt;child
+        link="plumilla" /&gt;
+        &lt;axis
+        xyz="0 0 0" /&gt;
+    &lt;/joint&gt;
+
+
+
+    &lt;/robot&gt;
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../4-0-primerosPasosRos/" class="btn btn-neutral float-left" title="4. Primeros pasos con ROS"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../5-0-Servo/" class="btn btn-neutral float-right" title="6. Servo">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Derechos de autor &copy; 2023  <a href="https://github.com/Ph0n1x0">Luis Miguel Loaiza</a>,  <a href="https://github.com/David-8a">David Ochoa</a>,  <a href="https://github.com/davinsony">Davinson Castaño-Cano</a>.
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../4-0-primerosPasosRos/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../5-0-Servo/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../js/mathjax.js" defer></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6" defer></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
