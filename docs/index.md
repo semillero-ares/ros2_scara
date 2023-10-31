@@ -4,7 +4,8 @@
 # 1.1. Introducción
 </center> 
 <p style="text-align: justify;"> 
-Un brazo robótico SCARA 4 DOF es un tipo de robot industrial utilizado para la automatización de procesos y la fabricación de artefactos. Esta máquina será controlada por una plataforma de código llamada ROS 2 que es una herramienta de desarrollo de software empleada en la robótica.
+Un brazo robótico SCARA 4 DOF es un tipo de robot industrial utilizado para la automatización de procesos y la fabricación de artefactos. Esta máquina será controlada por una plataforma de código llamada ROS 2 que es una herramienta de desarrollo de software empleada en la robótica
+
 </p style="text-align: justify;"> 
 <center> 
 
