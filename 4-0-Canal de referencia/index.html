@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Anexos - Tutorial para ROS 2 Scara</title>
+    <title>4. Canal de referencia - Tutorial para ROS 2 Scara</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Anexos";
-        var mkdocs_page_input_path = "9-0-Anexos.md";
+        var mkdocs_page_name = "4. Canal de referencia";
+        var mkdocs_page_input_path = "4-0-Canal de referencia.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -45,15 +45,21 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../2-0-Canal%20de%20referencia/">2. Canal de referencia</a>
+                <li class="toctree-l1"><a class="reference internal" href="../1-0-Ros2%20installation/">1. Ros2 Installation for Ubuntu</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../3-0-Requisitos/">3. Requisitos software</a>
+                <li class="toctree-l1"><a class="reference internal" href="../2-0-Requisitos/">2. Requisitos software</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../4-0-primerosPasosRos/">4. Primeros pasos con ROS</a>
+                <li class="toctree-l1"><a class="reference internal" href="../3-0-primerosPasosRos/">3. Primeros pasos con ROS</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">4. Canal de referencia</a>
+    <ul class="current">
+    </ul>
                 </li>
               </ul>
               <ul>
@@ -88,16 +94,6 @@
                 <li class="toctree-l1"><a class="reference internal" href="../6-0-SCARA/">12. SCARA</a>
                 </li>
               </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Anexos</a>
-    <ul class="current">
-    </ul>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../Ros2%20installation/">Ros2 Installation for Ubuntu</a>
-                </li>
-              </ul>
       </div>
     </div>
     </nav>
@@ -112,7 +108,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-      <li>Anexos</li>
+      <li>4. Canal de referencia</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -121,14 +117,25 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="anexos">Anexos</h1>
-<p>xxxxxx</p>
+                <h1 id="4-canal-de-referencia">4. Canal de referencia</h1>
+<p style="text-align: justify;">
+Para toda la elaboración del proyecto, además de utilizar librerías oficiales de las herramientas empleadas, se utilizaron videos de diversos canales de youtube. Sin embargo, para toda la conceptualización general de conocimientos para el proyecto, se empleó el siguiente canal de youtube:
+</p style="text-align: justify;">
+
+<p><img alt="" src="../img/canal.png" /></p>
+<p>Particularmente, se utilizó la siguiente la playlist <a href="https://www.youtube.com/watch?v=OWeLUSzxMsw&amp;list=PLunhqkrRNRhYAffV8JDiFOatQXuU-NnxT">Building a mobile robot</a>. <br></p>
+<p style="text-align: justify;">
+En este canal se realiza la simulación y construcción de un robot diferencial; claramente al compararlo con el proyecto presentado tienen objetivos muy diferentes, pero al llevarse con las mismas herramientas y hasta por el mismo _camino_, se decidió tomar de referencia como conceptualización y hasta entrenamiento para la elaboración del proyecto principal.  <br>
+
+
+Según esto, inicialmente se realizó el mismo proceso mostrado en el canal con el robot diferencial. Con esto realizado, se repitiría el mismo proceso pero con un servomotor; se tomó este enfoque porque el SCARA está construido con _motores de paso_ con comportamiento similar a los servomotores; por lo que, al realizar el control con un servomotor, bastaría con _adaptar_ el proyecto al SCARA. <br>
+</p style="text-align: justify;">
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../6-0-SCARA/" class="btn btn-neutral float-left" title="12. SCARA"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../Ros2%20installation/" class="btn btn-neutral float-right" title="Ros2 Installation for Ubuntu">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../3-0-primerosPasosRos/" class="btn btn-neutral float-left" title="3. Primeros pasos con ROS"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../4-1-URDF/" class="btn btn-neutral float-right" title="5. URDF">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -153,10 +160,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../6-0-SCARA/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../3-0-primerosPasosRos/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../Ros2%20installation/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../4-1-URDF/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
