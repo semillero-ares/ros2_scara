@@ -162,9 +162,8 @@ Los archivos de configuración de un robot se escriben en _xacro_, estos archivo
 <p style="text-align: justify;">
 Un robot diferencial es un robot que principalmente está formado por dos ruedas conocidas como _driven wheels_ (una en cada lado), estas dos ruedas son responables de _TODO_ el movimiento del robot; por lo que, todas las demás solamente son para _mantener estable_ el robot conocidas como _caster wheels_.
 </p style="text-align: justify;">
-<p><center>
-<img alt="" src="../img/diff_robot.png" />
-</center></p>
+
+<p><img alt="" src="../img/diff_robot.png" /></p>
 <p style="text-align: justify;">
 Con esta imagen se puede decir que el robot en realidad puede llegar a ser una _caja_ que tiene a sus lados un par de ruedas de dirección junto con otra rueda de estabilización. Para el comienzo del desarrollo del robot se plantean dos cosas:
 </p style="text-align: justify;">
@@ -394,13 +393,10 @@ De esta manera se sigue con las dos ruedas del robot, solamente que los joints s
 <p style="text-align: justify;"> 
 Un servomotor SG90 es un tipo de motor eléctrico que se utiliza para controlar la posición, velocidad y aceleración con precisión; este elemento al tener 1 DOF permite conocer e identificar los pasos a realizar para controlar el robot SCARA al tener una estructura muy similar.<br>
 </p style="text-align: justify;">
-<p><center>
-<img alt="" src="../img/SG90.jpg" />
-</center></p>
+
+<p><img alt="" src="../img/SG90.jpg" /></p>
 <p>Para realizar una simulación del elemento en movimiento se requiere de un URDF y si se tiene el elemento modelado, SolidWorks posee un plugin que brinda un archivo URDF. <br></p>
-<p><center></p>
-<p><strong>PASOS</strong>
-</center></p>
+<p><strong>PASOS</strong></p>
 <ol>
 <li>
 <p>Instalar sw2urdfSETUP.exe para la versión de SolidWorks que se tenga instalado. <a href="https://github.com/ros/solidworks_urdf_exporter/releases">Instalar plugin de SolidWorks</a></p>
@@ -408,25 +404,17 @@ Un servomotor SG90 es un tipo de motor eléctrico que se utiliza para controlar 
 <li>
 <p>Abrir la pieza en SolidWorks.</p>
 </li>
-<li>
-<p>En la parte superior derecha de la pantalla, se busca la extensión.
-<center>
-<img alt="" src="../img/solid.png" />
-</center></p>
-</li>
-<li>
-<p>Se definen las barras o eslabones que presenta el elemento, en este caso, se fja la base como la barra de tierra (inmovil), y se definen los eslabones y pares cinemáticos como las partes moviles.
-<center>
-<img alt="" src="../img/servo1.png" />
-</center></p>
-</li>
-<li>
-<p>Se presiona la opción de "Preview and export URDF" y se definen las variablees que posee el elemento, luego se genera el URDF y las mallas del elemento.
-<center>
-<img alt="" src="../img/servo2.png" />
-</center></p>
-</li>
+<li>En la parte superior derecha de la pantalla, se busca la extensión.</li>
 </ol>
+<p><img alt="" src="../img/solid.png" /></p>
+<ol>
+<li>Se definen las barras o eslabones que presenta el elemento, en este caso, se fja la base como la barra de tierra (inmovil), y se definen los eslabones y pares cinemáticos como las partes moviles.</li>
+</ol>
+<p><img alt="" src="../img/servo1.png" /></p>
+<ol>
+<li>Se presiona la opción de "Preview and export URDF" y se definen las variablees que posee el elemento, luego se genera el URDF y las mallas del elemento.</li>
+</ol>
+<p><img alt="" src="../img/servo2.png" /></p>
 <p><strong> EJEMPLO DEL URDF EXPORTADO</strong></p>
 <pre><code>    &lt;?xml version="1.0"?&gt;
 
