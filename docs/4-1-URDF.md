@@ -29,9 +29,9 @@ Los archivos de configuración de un robot se escriben en _xacro_, estos archivo
 <p style="text-align: justify;">
 Un robot diferencial es un robot que principalmente está formado por dos ruedas conocidas como _driven wheels_ (una en cada lado), estas dos ruedas son responables de _TODO_ el movimiento del robot; por lo que, todas las demás solamente son para _mantener estable_ el robot conocidas como _caster wheels_.
 </p style="text-align: justify;">
-<center>
+
 ![](img/diff_robot.png)
-</center>
+
 <p style="text-align: justify;">
 Con esta imagen se puede decir que el robot en realidad puede llegar a ser una _caja_ que tiene a sus lados un par de ruedas de dirección junto con otra rueda de estabilización. Para el comienzo del desarrollo del robot se plantean dos cosas:
 </p style="text-align: justify;">
@@ -289,34 +289,34 @@ Después de esto al correr el comando `ros2 launch my_bot rsp.launch.py` y en un
 <p style="text-align: justify;"> 
 Un servomotor SG90 es un tipo de motor eléctrico que se utiliza para controlar la posición, velocidad y aceleración con precisión; este elemento al tener 1 DOF permite conocer e identificar los pasos a realizar para controlar el robot SCARA al tener una estructura muy similar.<br>
 </p style="text-align: justify;"> 
-<center>
+
 ![](img/SG90.jpg)
-</center>
+
 
 Para realizar una simulación del elemento en movimiento se requiere de un URDF y si se tiene el elemento modelado, SolidWorks posee un plugin que brinda un archivo URDF. <br>
 
-<center>
+
 
 **PASOS**
-</center>
+
 
 1. Instalar sw2urdfSETUP.exe para la versión de SolidWorks que se tenga instalado. [Instalar plugin de SolidWorks](https://github.com/ros/solidworks_urdf_exporter/releases)
 
 2. Abrir la pieza en SolidWorks.
 3. En la parte superior derecha de la pantalla, se busca la extensión.
-<center>
+
 ![](img/solid.png)
-</center>
+
 
 4. Se definen las barras o eslabones que presenta el elemento, en este caso, se fja la base como la barra de tierra (inmovil), y se definen los eslabones y pares cinemáticos como las partes moviles.
-<center>
+
 ![](img/servo1.png)
-</center>
+
 
 5. Se presiona la opción de "Preview and export URDF" y se definen las variablees que posee el elemento, luego se genera el URDF y las mallas del elemento.
-<center>
+
 ![](img/servo2.png)
-</center>
+
 
 ** EJEMPLO DEL URDF EXPORTADO**
 

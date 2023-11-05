@@ -12,9 +12,9 @@ Un servomotor es un dispositivo que permite controlar con máxima precisión  la
 
 Los servomotores pueden ser industriales o de electrónica básica, su principal diferencia son los límites de rotación que pueden llegar a tener, un servo industrial puede tener un giro de 360 grados sin problema, mientras un servo de electrónica básica solamente tiene libertad de 180 grados. En este caso se estará trabajando con un servo de electrónica básica como el siguiente:
 </p style="text-align: justify;">
-<center>
+
 ![](img/servo.jpg)
-</center>
+
 
 </p style="text-align: justify;">
 

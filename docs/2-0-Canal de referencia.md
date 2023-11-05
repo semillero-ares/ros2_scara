@@ -5,9 +5,9 @@
 Para toda la elaboración del proyecto, además de utilizar librerías oficiales de las herramientas empleadas, se utilizaron videos de diversos canales de youtube. Sin embargo, para toda la conceptualización general de conocimientos para el proyecto, se empleó el siguiente canal de youtube:
 </p style="text-align: justify;">
 
-<center>
+
 ![](img/canal.png)
-</center>
+
 
 Particularmente, se utilizó la siguiente la playlist [Building a mobile robot](https://www.youtube.com/watch?v=OWeLUSzxMsw&list=PLunhqkrRNRhYAffV8JDiFOatQXuU-NnxT). <br>
 

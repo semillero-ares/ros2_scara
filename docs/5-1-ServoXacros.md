@@ -15,10 +15,10 @@ En el repositorio previamente expuesto se encuentran distintos archivos xacro. A
 <p style="text-align: justify;"> 
 
 Un concepto clave para los archivos xacros que se debe tener en claro es la diferenciación entre `command interfaces` y `state interfaces`. Las `command interfaces` se utilizan como recurso para enviar _comandos_ deseados para controlar el robot/dispositivo; mientras que, las `state interfaces`se usan para saber los _estados_ actuales de parámetros del robot. Por ejemplo en el servo se tiene como  `command interface` la posición del servo, porque se desea mover el servo ingresándole _comandos_ de posición; mientras que, para `state interfaces` se tiene la posición y velocidad del servo. La selección de estos parámetros dependerá siempre del controlador </p style="text-align: justify;"> 
-<center>
+
 
 [Enlace del controlador](https://control.ros.org/master/doc/ros2_controllers/doc/controllers_index.html)
-</center>
+
 
 
 Hablando un poco del archivo xacro, se tiene al inicio la descripción de los colores del robot 
