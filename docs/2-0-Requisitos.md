@@ -1,4 +1,4 @@
-# 3. Requisitos software
+# 2. Requisitos software
 
 <p style="text-align: justify;">
 Para la realización del proyecto se tienen los siguientes requisitos de software:<br><br>

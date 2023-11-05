@@ -1,4 +1,4 @@
-# Ros2 Installation for Ubuntu 
+# 1. Ros2 Installation for Ubuntu 
 
 Here is a condensed version of the [official tutorial](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) to install ROS2 on Ubuntu. We must follow a series of commands in the terminal:
 
