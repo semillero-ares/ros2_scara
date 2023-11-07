@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>9. Scara Moveit - Tutorial para ROS 2 Scara</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "9. Scara Moveit";
+        var mkdocs_page_input_path = "5-3-ScaraMoveIt.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Tutorial para ROS 2 Scara
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../1-0-Ros2%20installation/">1. Ros2 Installation for Ubuntu</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../2-0-Requisitos/">2. Requisitos software</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../3-0-primerosPasosRos/">3. Primeros pasos con ROS</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../4-0-Canal%20de%20referencia/">4. Canal de referencia</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../4-1-URDF/">5. URDF</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-0-Scara/">6. Scara</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-1-ScaraXacros/">7. Scara Xacros</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-2-ScaraControllers/">8. Scara Controllers</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">9. Scara Moveit</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#91-archivos-xacro">9.1 Archivos xacro</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#scarasrdf">Scara.srdf</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#92-archivos-yaml">9.2 Archivos yaml</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#moveit-controllers">Moveit controllers</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#joint-limits">Joint limits</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#kinematics">Kinematics</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-4-ScaraHardware%20y%20arduino/">10. Scara hardware</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-5-ScaraLaunch/">11. Scara launch</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Tutorial para ROS 2 Scara</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>9. Scara Moveit</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="9-scara-moveit">9. Scara Moveit</h1>
+<p>Para utilizar <em>MoveIt</em> se requieren múltiples archivos para su funcionamiento, estos se enlistan a continuación:</p>
+<h2 id="91-archivos-xacro">9.1 Archivos xacro</h2>
+<ol>
+<li><code>gazebo.xacro</code></li>
+<li><code>mock.xacro</code></li>
+<li><code>servo.urdf</code></li>
+<li><code>servo.srdf</code></li>
+</ol>
+<p>Los archivos xacro a excepción del archivo <code>scara.srdf</code>, son los mismos previamente realizados y explicados, por lo que estos 3 archivos se basan simplemente en incluir los demás de la siguiente manera: </p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;robot xmlns:xacro=&quot;http://www.ros.org/wiki/xacro&quot; name=&quot;scara&quot;&gt;
+
+    &lt;!-- Import scara urdf file --&gt;
+    &lt;xacro:include filename=&quot;$(find scara)/urdf/urdf.xacro&quot; /&gt;
+
+    &lt;!-- Import servo ros2_control description --&gt;
+    &lt;xacro:include filename=&quot;$(find scara_hardware)/config/ros2_control.xacro&quot; /&gt;
+    &lt;xacro:hardware_component 
+        name=&quot;hardware_component&quot; 
+        plugin=&quot;scara_hardware/ScaraHardwareComponent&quot; 
+    /&gt;
+
+&lt;/robot&gt;
+</code></pre>
+<p>Este es el código del archivo <code>scara.urdf</code> en donde meramente se incluye el urdf del servo y se incluye la descripción del hardware del robot. </p>
+<h3 id="scarasrdf">Scara.srdf</h3>
+<p>El único archivo que no se había mencionado hasta el momento es el <code>scara.srdf</code>, este archivo es una descripción de la <em>cadena</em> del robot; es decir, cómo está conectado el mismo por componentes. </p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; ?&gt;
+&lt;!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+--&gt;
+&lt;robot name=&quot;scara&quot;&gt;
+    &lt;!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc--&gt;
+    &lt;!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included--&gt;
+    &lt;!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included--&gt;
+    &lt;!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group--&gt;
+    &lt;!--SUBGROUPS: Groups can also be formed by referencing to already defined group names--&gt;
+    &lt;group name=&quot;chain&quot;&gt;
+        &lt;link name=&quot;world&quot;/&gt;
+        &lt;link name=&quot;base_link&quot;/&gt;
+        &lt;joint name=&quot;fijacion&quot;/&gt;
+        &lt;link name=&quot;antebrazo&quot;/&gt;
+        &lt;joint name=&quot;hombro&quot;/&gt;
+        &lt;link name=&quot;brazo&quot;/&gt;
+        &lt;joint name=&quot;codo&quot;/&gt;
+        &lt;link name=&quot;mano&quot;/&gt;
+        &lt;joint name=&quot;falange&quot;/&gt;
+        &lt;link name=&quot;dedo&quot;/&gt;
+        &lt;joint name=&quot;muneca&quot;/&gt;
+        &lt;chain base_link=&quot;world&quot; tip_link=&quot;dedo&quot; /&gt;
+    &lt;/group&gt;
+    &lt;!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'--&gt;
+    &lt;group_state name=&quot;cero&quot; group=&quot;chain&quot;&gt;
+        &lt;joint name=&quot;falange&quot; value=&quot;0&quot; /&gt;
+        &lt;joint name=&quot;codo&quot; value=&quot;0&quot; /&gt;
+        &lt;joint name=&quot;hombro&quot; value=&quot;0&quot; /&gt;
+        &lt;joint name=&quot;muneca&quot; value=&quot;0&quot; /&gt;
+    &lt;/group_state&gt;
+    &lt;group_state name=&quot;izquierda&quot; group=&quot;chain&quot;&gt;
+        &lt;joint name=&quot;falange&quot; value=&quot;0&quot; /&gt;
+        &lt;joint name=&quot;codo&quot; value=&quot;-0.8852&quot; /&gt;
+        &lt;joint name=&quot;hombro&quot; value=&quot;-0.538&quot; /&gt;
+        &lt;joint name=&quot;muneca&quot; value=&quot;0.2&quot; /&gt;
+    &lt;/group_state&gt;
+    &lt;group_state name=&quot;derecha&quot; group=&quot;chain&quot;&gt;
+        &lt;joint name=&quot;falange&quot; value=&quot;0&quot; /&gt;
+        &lt;joint name=&quot;codo&quot; value=&quot;2.2737&quot; /&gt;
+        &lt;joint name=&quot;hombro&quot; value=&quot;2.482&quot; /&gt;
+        &lt;joint name=&quot;muneca&quot; value=&quot;0.2&quot; /&gt;
+    &lt;/group_state&gt;
+    &lt;group_state name=&quot;adelante&quot; group=&quot;chain&quot;&gt;
+        &lt;joint name=&quot;falange&quot; value=&quot;0&quot; /&gt;
+        &lt;joint name=&quot;codo&quot; value=&quot;-2.3778&quot; /&gt;
+        &lt;joint name=&quot;hombro&quot; value=&quot;0.8505&quot; /&gt;
+        &lt;joint name=&quot;muneca&quot; value=&quot;0.2&quot; /&gt;
+    &lt;/group_state&gt;
+    &lt;group_state name=&quot;pick&quot; group=&quot;chain&quot;&gt;
+        &lt;joint name=&quot;falange&quot; value=&quot;0&quot; /&gt;
+        &lt;joint name=&quot;codo&quot; value=&quot;-2.3778&quot; /&gt;
+        &lt;joint name=&quot;hombro&quot; value=&quot;0.8505&quot; /&gt;
+        &lt;joint name=&quot;muneca&quot; value=&quot;0&quot; /&gt;
+    &lt;/group_state&gt;
+    &lt;!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)--&gt;
+    &lt;virtual_joint name=&quot;virtual_joint&quot; type=&quot;fixed&quot; parent_frame=&quot;world&quot; child_link=&quot;world&quot; /&gt;
+    &lt;!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. --&gt;
+    &lt;disable_collisions link1=&quot;antebrazo&quot; link2=&quot;base_link&quot; reason=&quot;Adjacent&quot; /&gt;
+    &lt;disable_collisions link1=&quot;antebrazo&quot; link2=&quot;brazo&quot; reason=&quot;Adjacent&quot; /&gt;
+    &lt;disable_collisions link1=&quot;base_link&quot; link2=&quot;mano&quot; reason=&quot;Never&quot; /&gt;
+    &lt;disable_collisions link1=&quot;brazo&quot; link2=&quot;dedo&quot; reason=&quot;Never&quot; /&gt;
+    &lt;disable_collisions link1=&quot;brazo&quot; link2=&quot;mano&quot; reason=&quot;Adjacent&quot; /&gt;
+    &lt;disable_collisions link1=&quot;dedo&quot; link2=&quot;mano&quot; reason=&quot;Adjacent&quot; /&gt;
+&lt;/robot&gt;
+</code></pre>
+<p>Como se puede observar, primero se enlista el <em>grupo</em> o <em>cadena</em> del robot bajo el nombre <code>group name</code> en donde se enlista toda la cadena de <em>joints</em> y <em>links</em> del robot. Luego de esto se definen los <code>group states</code> que son básicamente algunos estados del robot, estas vendrían siendo unas posiciones determinadas para el movimiento del mismo; y por último se pueden definir dos cosas <code>virtual joint</code> en donde se establece un joint entre el robot y el mundo para que no <em>vuele</em> el robot en la simulación y <code>disable collisions</code> en donde se definen que joints no pueden <em>chocar</em> por ser <em>adyacentes</em> o simplemente ser <em>imposible</em> su colisión.</p>
+<h2 id="92-archivos-yaml">9.2 Archivos yaml</h2>
+<ol>
+<li><code>chomp_planning.yaml</code></li>
+<li><code>ompl_planning.yaml</code></li>
+<li><code>pliz_cartesian_limits.yaml</code></li>
+<li><code>sensors.yaml</code> </li>
+<li><code>moveit_controllers.yaml</code></li>
+<li><code>joint_limits.yaml</code></li>
+<li><code>kinematics.yaml</code></li>
+</ol>
+<p>Anteriormente, los archivos <code>yaml</code> podían ser extraídos con el  <em>moveit assistant</em> en <code>ROS 1</code>, en el caso del servo y el scara se utilizaron los archivos extraídos previamente con ROS y se adaptaron a las necesidades propias. En <em>MoveIt</em> un robot se puede mover con diferentes <em>planners</em>, tales como <code>chomp</code>, <code>ompl</code> y <code>pliz</code>, estos se atribuyen a los 3 primeros archivos <code>yaml</code>, cada uno se diferencia en el objetivo que se requiera, por ejemplo para un movimiento con coordenadas vendría siendo mejor un <code>pliz</code>; sin embargo, en el proyecto inicialmente se utilizó el <code>ompl</code>.</p>
+<p>El archivo de <code>sensors.yaml</code> actualmente se encuentra vacío teniendo en cuenta que no se tienen sensores integrados al robot, el archivo de <code>moveit_controllers.yaml</code> se integra el controlador default de moveit y el que utilizamos para controlar el servo; es decir, el <code>Joint trajectory controller</code> de la siguiente manera: </p>
+<h3 id="moveit-controllers">Moveit controllers</h3>
+<pre><code class="language-yaml">trajectory_execution:
+  allowed_execution_duration_scaling: 1.2
+  allowed_goal_duration_margin: 0.5
+  allowed_start_tolerance: 0.01
+
+moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
+
+moveit_simple_controller_manager:
+  controller_names:
+    - scara_controller
+
+  scara_controller:
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: true
+    joints:
+      - hombro
+      - codo
+      - muneca
+      - falange
+</code></pre>
+<p>Por último se tienen los archivos <code>joint_limits.yaml</code> y <code>kinematics.yaml</code>, para <code>joint_limits.yaml</code> se decriben los límites de los joints en términos meramente de velocidad y aceleración (si aplica):</p>
+<h3 id="joint-limits">Joint limits</h3>
+<pre><code class="language-yaml"># joint_limits.yaml allows the dynamics properties specified in the URDF to be overwritten or augmented as needed
+
+# For beginners, we downscale velocity and acceleration limits.
+# You can always specify higher scaling factors (&lt;= 1.0) in your motion requests.  # Increase the values below to 1.0 to always move at maximum speed.
+default_velocity_scaling_factor: 0.1
+default_acceleration_scaling_factor: 0.1
+
+# Specific joint properties can be changed with the keys [max_position, min_position, max_velocity, max_acceleration]
+# Joint limits can be turned off with [has_velocity_limits, has_acceleration_limits]
+# joint_limits.yaml allows the dynamics properties specified in the URDF to be overwritten or augmented as needed
+# Specific joint properties can be changed with the keys [max_position, min_position, max_velocity, max_acceleration]
+# Joint limits can be turned off with [has_velocity_limits, has_acceleration_limits]
+joint_limits:
+  falange:
+    has_velocity_limits: true
+    max_velocity: 1.0
+    has_acceleration_limits: true
+    max_acceleration: 1.0
+  codo:
+    has_velocity_limits: true
+    max_velocity: 1.0
+    has_acceleration_limits: true
+    max_acceleration: 1.0
+  hombro:
+    has_velocity_limits: true
+    max_velocity: 1.0
+    has_acceleration_limits: true
+    max_acceleration: 1.0
+  muneca:
+    has_velocity_limits: true
+    max_velocity: 1.0
+    has_acceleration_limits: true
+    max_acceleration: 1.0
+</code></pre>
+<p>Y para <code>kinematics.yaml</code> se utiliza un plugin de moveit para su funcionamiento: </p>
+<h3 id="kinematics">Kinematics</h3>
+<pre><code class="language-yaml">group_name:
+  kinematics_solver: kdl_kinematics_plugin/KDLKinematicsPlugin
+  kinematics_solver_search_resolution: 0.005
+  kinematics_solver_timeout: 0.015
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../5-2-ScaraControllers/" class="btn btn-neutral float-left" title="8. Scara Controllers"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../5-4-ScaraHardware%20y%20arduino/" class="btn btn-neutral float-right" title="10. Scara hardware">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Derechos de autor &copy; 2023  <a href="https://github.com/Ph0n1x0">Luis Miguel Loaiza</a>,  <a href="https://github.com/David-8a">David Ochoa</a>,  <a href="https://github.com/davinsony">Davinson Castaño-Cano</a>.
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../5-2-ScaraControllers/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../5-4-ScaraHardware%20y%20arduino/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../js/mathjax.js" defer></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6" defer></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

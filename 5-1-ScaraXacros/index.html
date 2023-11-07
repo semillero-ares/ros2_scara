@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>7. Scara Xacros - Tutorial para ROS 2 Scara</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "7. Scara Xacros";
+        var mkdocs_page_input_path = "5-1-ScaraXacros.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Tutorial para ROS 2 Scara
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../1-0-Ros2%20installation/">1. Ros2 Installation for Ubuntu</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../2-0-Requisitos/">2. Requisitos software</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../3-0-primerosPasosRos/">3. Primeros pasos con ROS</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../4-0-Canal%20de%20referencia/">4. Canal de referencia</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../4-1-URDF/">5. URDF</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-0-Scara/">6. Scara</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">7. Scara Xacros</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#71-gazebo-xacro">7.1. Gazebo xacro</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#72-ros2-control">7.2. ROS2 Control</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#73-calibracion-para-ros2-control">7.3. Calibración para ROS2 Control</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-2-ScaraControllers/">8. Scara Controllers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-3-ScaraMoveIt/">9. Scara Moveit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-4-ScaraHardware%20y%20arduino/">10. Scara hardware</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-5-ScaraLaunch/">11. Scara launch</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Tutorial para ROS 2 Scara</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>7. Scara Xacros</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="7-scara-xacros">7. Scara Xacros</h1>
+<p style="text-align: justify;">
+En el repositorio previamente expuesto se encuentran distintos archivos xacro. A continuación, se enlistan los archivos con una pequeña descripción de los mismos. Además, se mencionan las principales características de cada uno:
+</p style="text-align: justify;">
+
+<ol>
+<li><strong>Gazebo:</strong> <p style="text-align: justify;"> Descripción de robot en materiales (colores) y en hardware component con toda la integración de ros2 control, en esta parte se describe el plugin necesario y los joints del robot con sus <code>command interfaces</code> y <code>state interfaces</code>. </p style="text-align: justify;"></li>
+<li><strong>Ros2 control:</strong> <p style="text-align: justify;">Descripción de robot para aplicación en Scara <em>REAL</em>, para esto se utiliza como plugin los archivos de scara Hardware y parámetros importantes para el control como el <code>Baud rate</code>, constantes <code>PID</code>, <code>Serial Device</code>, entre otros.</p style="text-align: justify;"> </li>
+<li><strong>URDF:</strong> <p style="text-align: justify;"> URDF extraído de Solidworks según el ejemplo visualizado, este URDF usa <em>meshes</em> para parte del robot definida:<code>antebrazo</code>, <code>base</code>, <code>brazo</code>,<code>dedo</code> y <code>mano</code>.  </p style="text-align: justify;"></li>
+</ol>
+<h2 id="71-gazebo-xacro">7.1. Gazebo xacro</h2>
+<p style="text-align: justify;"> 
+
+Un concepto clave para los archivos xacros que se debe tener en claro es la diferenciación entre `command interfaces` y `state interfaces`. Las `command interfaces` se utilizan como recurso para enviar _comandos_ deseados para controlar el robot/dispositivo; mientras que, las `state interfaces`se usan para saber los _estados_ actuales de parámetros del robot. Por ejemplo en el scara se tiene como  `command interface` la posición del servo, porque se desea mover el servo ingresándole _comandos_ de posición; mientras que, para `state interfaces` se tiene la posición y velocidad del scara. La selección de estos parámetros dependerá siempre del controlador </p style="text-align: justify;">
+
+<p><a href="https://control.ros.org/master/doc/ros2_controllers/doc/controllers_index.html">Enlace del controlador</a></p>
+<p>Hablando un poco del archivo xacro, se tiene al inicio donde se incluye el URDF del Scara y su respectivo archivo de <code>ros2_control</code> </p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;robot xmlns:xacro=&quot;http://www.ros.org/wiki/xacro&quot; name=&quot;epson&quot;&gt;
+
+    &lt;!-- Import scara urdf file --&gt;
+    &lt;xacro:include filename=&quot;$(find scara)/urdf/urdf.xacro&quot; /&gt;
+
+    &lt;!-- Import brazo ros2_control description --&gt;
+    &lt;xacro:include filename=&quot;$(find scara_hardware)/config/ros2_control.xacro&quot; /&gt;
+    &lt;xacro:hardware_component 
+        name=&quot;GazeboSimSystem&quot; 
+        plugin=&quot;gazebo_ros2_control/GazeboSystem&quot; 
+    /&gt;
+</code></pre>
+<p style="text-align: justify;">
+
+Después de esto se tiene la definición de colores para cada parte del robot definida
+</p style="text-align: justify;">
+
+<pre><code class="language-xml">    &lt;!-- Gazebo Colors  --&gt;
+    &lt;gazebo reference=&quot;base_link&quot;&gt;
+        &lt;material&gt;Gazebo/Orange&lt;/material&gt;
+    &lt;/gazebo&gt;
+    &lt;gazebo reference=&quot;antebrazo&quot;&gt;
+        &lt;material&gt;Gazebo/White&lt;/material&gt;
+    &lt;/gazebo&gt;
+    &lt;gazebo reference=&quot;brazo&quot;&gt;
+        &lt;material&gt;Gazebo/White&lt;/material&gt;
+    &lt;/gazebo&gt;
+    &lt;gazebo reference=&quot;mano&quot;&gt;
+        &lt;material&gt;Gazebo/White&lt;/material&gt;
+    &lt;/gazebo&gt;
+    &lt;gazebo reference=&quot;dedo&quot;&gt;
+        &lt;material&gt;Gazebo/White&lt;/material&gt;
+    &lt;/gazebo&gt;
+</code></pre>
+<p>Por último, se tienen unas lineas en donde se ingresa la ruta para encontrar el controlador del robot, este archivo es un script <em>.YAML</em> y se describirá más adelante.</p>
+<pre><code class="language-xml">    &lt;gazebo&gt;
+        &lt;plugin filename=&quot;libgazebo_ros2_control.so&quot; name=&quot;gazebo_ros2_control&quot;&gt;
+            &lt;parameters&gt;$(find scara)/config/ros2_controllers.yaml&lt;/parameters&gt;
+        &lt;/plugin&gt;
+    &lt;/gazebo&gt;
+
+&lt;/robot&gt;
+</code></pre>
+<h2 id="72-ros2-control">7.2. ROS2 Control</h2>
+<p>El xacro del <em>ros2 Control</em> se utiliza cuando se desea controlar el scara <em>REAL</em> conectado al PC, para esto se necesiten los archivos en <em>C++</em> que se describirán más adelante. Además de eso, se ingresan parámetros necesarios para el control del dispoitivo. A diferencia del archivo del servo, el archivo del Scara es más <em>robusto</em> porque se necesitan especificar parámetros para cada joint como <code>joint_controller_gain</code> , <code>joint_offset</code>, <code>joint3_minimum_time_period</code>, etc.   </p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;robot xmlns:xacro=&quot;http://www.ros.org/wiki/xacro&quot;&gt;
+  &lt;xacro:macro name=&quot;hardware_component&quot; params=&quot;name plugin&quot;&gt;
+    &lt;ros2_control name=&quot;${name}&quot; type=&quot;system&quot;&gt;
+      &lt;hardware&gt;
+        &lt;plugin&gt;${plugin}&lt;/plugin&gt;
+
+        &lt;!-- Joint1 --&gt;
+        &lt;param name=&quot;joint1_name&quot;&gt;hombro&lt;/param&gt;
+        &lt;param name=&quot;joint1_controller_gain&quot;&gt;50.0&lt;/param&gt;
+        &lt;param name=&quot;joint1_counts_per_unit&quot;&gt;133005.464&lt;/param&gt;
+        &lt;param name=&quot;joint1_ref&quot;&gt;-1.84&lt;/param&gt;
+        &lt;param name=&quot;joint1_minimum_time_period&quot;&gt;1&lt;/param&gt;
+        &lt;param name=&quot;joint1_maximum_time_period&quot;&gt;1000000&lt;/param&gt;
+        &lt;param name=&quot;joint1_offset&quot;&gt;243400&lt;/param&gt;
+
+        &lt;!-- Joint2 --&gt;
+        &lt;param name=&quot;joint2_name&quot;&gt;codo&lt;/param&gt;
+        &lt;param name=&quot;joint2_controller_gain&quot;&gt;50.0&lt;/param&gt;
+        &lt;param name=&quot;joint2_counts_per_unit&quot;&gt;15481.74&lt;/param&gt;
+        &lt;param name=&quot;joint2_ref&quot;&gt;2.57&lt;/param&gt;
+        &lt;param name=&quot;joint2_minimum_time_period&quot;&gt;3&lt;/param&gt;
+        &lt;param name=&quot;joint2_maximum_time_period&quot;&gt;1000000&lt;/param&gt;
+        &lt;param name=&quot;joint2_offset&quot;&gt;-39850&lt;/param&gt;
+
+        &lt;!-- Joint3 --&gt;
+        &lt;param name=&quot;joint3_name&quot;&gt;muneca&lt;/param&gt;
+        &lt;param name=&quot;joint3_controller_gain&quot;&gt;50.0&lt;/param&gt;
+        &lt;param name=&quot;joint3_counts_per_unit&quot;&gt;1000.0&lt;/param&gt;
+        &lt;param name=&quot;joint3_minimum_time_period&quot;&gt;1&lt;/param&gt;
+        &lt;param name=&quot;joint3_maximum_time_period&quot;&gt;1000000&lt;/param&gt;
+        &lt;param name=&quot;joint3_offset&quot;&gt;0&lt;/param&gt;
+
+        &lt;!-- Joint4 --&gt;
+        &lt;param name=&quot;joint4_name&quot;&gt;falange&lt;/param&gt;
+        &lt;param name=&quot;joint4_controller_gain&quot;&gt;50.0&lt;/param&gt;
+        &lt;param name=&quot;joint4_counts_per_unit&quot;&gt;1065200.0&lt;/param&gt; &lt;!-- 2 * 79890 / 0.15m --&gt;
+        &lt;param name=&quot;joint4_minimum_time_period&quot;&gt;1&lt;/param&gt;
+        &lt;param name=&quot;joint4_maximum_time_period&quot;&gt;1000000&lt;/param&gt;
+        &lt;param name=&quot;joint4_offset&quot;&gt;0&lt;/param&gt;
+</code></pre>
+<p>Luego de esto se definen los parámetros para la <code>serial_communication</code> y las <code>command interfaces</code> y <code>state interfaces</code></p>
+<pre><code class="language-xml"> &lt;!-- Serial Communication --&gt;
+        &lt;param name=&quot;loop_rate&quot;&gt;30&lt;/param&gt;
+        &lt;param name=&quot;device&quot;&gt;/tmp/scara&lt;/param&gt;
+        &lt;param name=&quot;baud_rate&quot;&gt;115200&lt;/param&gt;
+        &lt;param name=&quot;timeout_ms&quot;&gt;1000&lt;/param&gt;
+        &lt;param name=&quot;echo&quot;&gt;true&lt;/param&gt;
+      &lt;/hardware&gt;
+      &lt;joint name=&quot;hombro&quot;&gt;
+        &lt;command_interface name=&quot;position&quot;/&gt;
+        &lt;state_interface name=&quot;position&quot;&gt;
+          &lt;param name=&quot;initial_value&quot;&gt;-1.84&lt;/param&gt;
+        &lt;/state_interface&gt;
+        &lt;state_interface name=&quot;velocity&quot;&gt;
+          &lt;param name=&quot;initial_value&quot;&gt;0.0&lt;/param&gt;
+        &lt;/state_interface&gt;
+      &lt;/joint&gt;
+      &lt;joint name=&quot;codo&quot;&gt;
+        &lt;command_interface name=&quot;position&quot;/&gt;
+        &lt;state_interface name=&quot;position&quot;&gt;
+          &lt;param name=&quot;initial_value&quot;&gt;2.57&lt;/param&gt;
+        &lt;/state_interface&gt;
+        &lt;state_interface name=&quot;velocity&quot;&gt;
+          &lt;param name=&quot;initial_value&quot;&gt;0.0&lt;/param&gt;
+        &lt;/state_interface&gt;
+      &lt;/joint&gt;
+      &lt;joint name=&quot;falange&quot;&gt;
+        &lt;command_interface name=&quot;position&quot;/&gt;
+        &lt;state_interface name=&quot;position&quot;&gt;
+          &lt;param name=&quot;initial_value&quot;&gt;0.0&lt;/param&gt;
+        &lt;/state_interface&gt;
+        &lt;state_interface name=&quot;velocity&quot;&gt;
+          &lt;param name=&quot;initial_value&quot;&gt;0.0&lt;/param&gt;
+        &lt;/state_interface&gt;
+      &lt;/joint&gt;
+      &lt;joint name=&quot;muneca&quot;&gt;
+        &lt;command_interface name=&quot;position&quot;/&gt;
+        &lt;state_interface name=&quot;position&quot;&gt;
+          &lt;param name=&quot;initial_value&quot;&gt;0.0&lt;/param&gt;
+        &lt;/state_interface&gt;
+        &lt;state_interface name=&quot;velocity&quot;&gt;
+          &lt;param name=&quot;initial_value&quot;&gt;0.0&lt;/param&gt;
+        &lt;/state_interface&gt;
+      &lt;/joint&gt;
+    &lt;/ros2_control&gt;
+  &lt;/xacro:macro&gt;
+&lt;/robot&gt;
+
+</code></pre>
+<h2 id="73-calibracion-para-ros2-control">7.3. Calibración para ROS2 Control</h2>
+<p>Explicar proceso de calibración </p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../5-0-Scara/" class="btn btn-neutral float-left" title="6. Scara"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../5-2-ScaraControllers/" class="btn btn-neutral float-right" title="8. Scara Controllers">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Derechos de autor &copy; 2023  <a href="https://github.com/Ph0n1x0">Luis Miguel Loaiza</a>,  <a href="https://github.com/David-8a">David Ochoa</a>,  <a href="https://github.com/davinsony">Davinson Castaño-Cano</a>.
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../5-0-Scara/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../5-2-ScaraControllers/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../js/mathjax.js" defer></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6" defer></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

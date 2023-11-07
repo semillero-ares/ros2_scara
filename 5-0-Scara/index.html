@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>8. Servo Controllers - Tutorial para ROS 2 Scara</title>
+    <title>6. Scara - Tutorial para ROS 2 Scara</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "8. Servo Controllers";
-        var mkdocs_page_input_path = "5-2-ServoControllers.md";
+        var mkdocs_page_name = "6. Scara";
+        var mkdocs_page_input_path = "5-0-Scara.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -64,34 +64,30 @@
                 <li class="toctree-l1"><a class="reference internal" href="../4-1-URDF/">5. URDF</a>
                 </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../5-0-Servo/">6. Servo</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../5-1-ServoXacros/">7. Servo Xacros</a>
-                </li>
-              </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">8. Servo Controllers</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">6. Scara</a>
     <ul class="current">
     </ul>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../5-3-ServoMoveIt/">9. Servo Moveit</a>
+                <li class="toctree-l1"><a class="reference internal" href="../5-1-ScaraXacros/">7. Scara Xacros</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../5-4-ServoHardware%20y%20arduino/">10. Servo hardware</a>
+                <li class="toctree-l1"><a class="reference internal" href="../5-2-ScaraControllers/">8. Scara Controllers</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../5-5-ServoLaunch/">11. Servo launch</a>
+                <li class="toctree-l1"><a class="reference internal" href="../5-3-ScaraMoveIt/">9. Scara Moveit</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../6-0-SCARA/">12. SCARA</a>
+                <li class="toctree-l1"><a class="reference internal" href="../5-4-ScaraHardware%20y%20arduino/">10. Scara hardware</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-5-ScaraLaunch/">11. Scara launch</a>
                 </li>
               </ul>
       </div>
@@ -108,7 +104,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-      <li>8. Servo Controllers</li>
+      <li>6. Scara</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -117,14 +113,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="8-servo-controllers">8. Servo Controllers</h1>
-<p>Controladores y gazebo </p>
+                <h1 id="6-scara">6. Scara</h1>
+<p style="text-align: justify;">
+Según el ejemplo realizado en Solidworks con el servo, se procedió a realizar lo mismo pero con la modelación del robot SCARA que se tiene a disposición
+</p style="text-align: justify;">
+
+<p><img alt="" src="../img/brazo.png" /></p>
+<p style="text-align: justify;">
+Los robots Scara, conocidos comúnmente como brazos robóticos, son un éxito de la automatización. Sus cuatro grados de libertad proporcionan mucha más velocidad, precisión y opciones que los manipuladores cartesianos estándar de tres ejes utilizados para la manipulación.<br> <br>
+
+SCARA son las siglas de "Selective Compilant Assembly Robot Arm" (brazo robótico de ensamblaje selectivo). Se trata de un pequeño robot destinado a realizar tareas repetitivas con rapidez y precisión. Una de sus aplicaciones más comunes es "recoger y colocar" piezas del punto A a la posición B.
+
+</p style="text-align: justify;">
+<p><img alt="" src="../img/scara.webp" /></p>
+<p style="text-align: justify;">
+Para esto se tiene la siguiente modelación del SCARA:
+
+IMAGEN DEL SCARA MODELADO
+</p style="text-align: justify;">
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../5-1-ServoXacros/" class="btn btn-neutral float-left" title="7. Servo Xacros"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../5-3-ServoMoveIt/" class="btn btn-neutral float-right" title="9. Servo Moveit">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../4-1-URDF/" class="btn btn-neutral float-left" title="5. URDF"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../5-1-ScaraXacros/" class="btn btn-neutral float-right" title="7. Scara Xacros">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -149,10 +161,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../5-1-ServoXacros/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../4-1-URDF/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../5-3-ServoMoveIt/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../5-1-ScaraXacros/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

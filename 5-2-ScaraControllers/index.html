@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>6. Servo - Tutorial para ROS 2 Scara</title>
+    <title>8. Scara Controllers - Tutorial para ROS 2 Scara</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "6. Servo";
-        var mkdocs_page_input_path = "5-0-Servo.md";
+        var mkdocs_page_name = "8. Scara Controllers";
+        var mkdocs_page_input_path = "5-2-ScaraControllers.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -64,34 +64,38 @@
                 <li class="toctree-l1"><a class="reference internal" href="../4-1-URDF/">5. URDF</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-0-Scara/">6. Scara</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-1-ScaraXacros/">7. Scara Xacros</a>
+                </li>
+              </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">6. Servo</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">8. Scara Controllers</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#81-estructura-de-archivo">8.1 Estructura de archivo</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#declaracion-de-controladores">Declaración de controladores</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#descripcion-de-controladores">Descripción de controladores</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../5-1-ServoXacros/">7. Servo Xacros</a>
+                <li class="toctree-l1"><a class="reference internal" href="../5-3-ScaraMoveIt/">9. Scara Moveit</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../5-2-ServoControllers/">8. Servo Controllers</a>
+                <li class="toctree-l1"><a class="reference internal" href="../5-4-ScaraHardware%20y%20arduino/">10. Scara hardware</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../5-3-ServoMoveIt/">9. Servo Moveit</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../5-4-ServoHardware%20y%20arduino/">10. Servo hardware</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../5-5-ServoLaunch/">11. Servo launch</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../6-0-SCARA/">12. SCARA</a>
+                <li class="toctree-l1"><a class="reference internal" href="../5-5-ScaraLaunch/">11. Scara launch</a>
                 </li>
               </ul>
       </div>
@@ -108,7 +112,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-      <li>6. Servo</li>
+      <li>8. Scara Controllers</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -117,36 +121,65 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="6-servo">6. Servo</h1>
-<p style="text-align: justify;">
-Con los pasos requeridos para ejecutar el robot diferencial, se procedió a realizar el mismo proceso para un servomotor. Para esto, como bien se menciona anteriormente, se pueden utilizar dos métodos: 
-</p style="text-align: justify;">
-
+                <h1 id="8-scara-controllers">8. Scara Controllers</h1>
+<p>Los controladores son la parte más esencial de todo el proceso de simulación y por supuesto, de control. Para toda la simulación se emplean distintos archivos de controladores, los cuales se expresan en <code>.yaml</code>. Para la simulación solamente se necesiten dos archivos de controladores: </p>
 <ol>
-<li>Constituir el servo con figuras volumétricas básicas</li>
-<li>Extraer el URDF con el plugin de solidworks como se mostró en el ejemplo anterior. </li>
+<li><code>ros2_controllers.yaml</code> ubicado en la carpeta <code>config</code> del paquete <code>scara</code> </li>
+<li><code>moveit_controllers.yaml</code> ubicado en la carpeta <code>config</code> del paquete <code>scara_moveit_config</code></li>
 </ol>
-<p style="text-align: justify;">
-Un servomotor es un dispositivo que permite controlar con máxima precisión  la posición y movimiento de su eje. Esto quiere decir que se puede mover en un ángulo, posición y a una velocidad determinada en cada momento, cosa que no puede hacer con normalidad un motor eléctrico. Industrialmente, se utilizan los servos en todas aquellas aplicaciones de automatización industrial y robótica en las que se necesitan un exhaustivo control del par, del posicionamiento y de la velocidad para mejorar la calidad y la productividad. <br> <br>
+<p>Como se pudo visualizar en los archivos <code>xacro</code>, los controladores se ingresan mediante un archivo de este tipo y dependerá de la simulación que se desee realizar. Además de esto, para la selección del controlador se deben tener en cuenta varios detalles:</p>
+<ol>
+<li><code>command interfaces</code> del robot</li>
+<li><code>state interfaces</code> del robot</li>
+<li>Controladores a disposición para adaptar (<a href="https://control.ros.org/master/doc/ros2_controllers/doc/controllers_index.html">Repositorio</a>)</li>
+</ol>
+<h2 id="81-estructura-de-archivo">8.1 Estructura de archivo</h2>
+<p>Los archivos de controlares están compuestos por dos partes: <em>Declaración de controlares</em> y <em>Descripción de controladores</em></p>
+<h3 id="declaracion-de-controladores">Declaración de controladores</h3>
+<p>Para el caso del servo se utilizaron los controladores: <code>Joint trajectory controller</code> y <code>Joint state broadcaster</code>, el primero de estos sirve para darle una trayectoria de <em>puntos</em> al controlador y esté lo utilizará para mover robot y alcanzar estos puntos. Por otro lado, el <code>Joint state broadcaster</code> se utiliza para poder tener una conexión continua con el estado de los joints del robot, es recomedable utilizarlo siempre en estos casos. </p>
+<pre><code class="language-yaml">controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
 
-Los servomotores pueden ser industriales o de electrónica básica, su principal diferencia son los límites de rotación que pueden llegar a tener, un servo industrial puede tener un giro de 360 grados sin problema, mientras un servo de electrónica básica solamente tiene libertad de 180 grados. En este caso se estará trabajando con un servo de electrónica básica como el siguiente:
-</p style="text-align: justify;">
+    scara_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
 
-<p><img alt="" src="../img/servo.jpg" /></p>
-</p style="text-align: justify;">
-<p>En terminos de mecanismos internos, un servo es un dispositivo que se puede modelar muy fácilmente, solo contiene un <em>chasis</em> que sería la <em>caja azul</em> y tendría la parte superior que rota sobre un eje que se denomina como <em>plumilla</em>. Ante esta situación, se decidió realizar toda la aplicación del servo con figuras volumétricas básicas, toda esta configuración se encuentra en el siguiente <a href="https://gitlab.com/semillero-ares/ros2_servo">enlace</a>. <br><br></p>
-</p style="text-align: justify;">
-<p style="text-align: justify;">
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
 
-En las siguientes páginas se explicará brevemente los pasos para controlar un servomotor que posee 1 DOF y el contenido del repositorio que contiene los códigos utilizados en la solución del problema.<br>
-Se controla primeramente un servomotor con la intención de entender cómo funciona robóticamente ROS 2 y cómo se controla cada grado de libertad, posteriormente se implementará lo aprendido para controlar el robot SCARA. 
-<p style="text-align: justify;">
+</code></pre>
+<p>La declaración como se puede visualizar esta compuesta meramente por el <em>nombramiento</em> de los controlares, utilizando la librería y nombre indicado.</p>
+<h3 id="descripcion-de-controladores">Descripción de controladores</h3>
+<p>Después de esto, la descripción se basa en el ingreso de todos los parámetros que necesita el controlador para funcionar; es decir, se ingresan los <code>joints</code>, <code>command interfaces</code> y <code>state interfaces</code>, claramente si el controlador lo requiere.</p>
+<pre><code class="language-yaml">scara_controller:
+  ros__parameters:
+    interface_name: position
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    joints:
+      - hombro
+      - codo
+      - muneca
+      - falange
+
+joint_state_broadcaster:
+  ros__parameters:
+    joints:
+      - hombro
+      - codo
+      - muneca
+      - falange
+</code></pre>
+<p>En este caso el <code>Joint trajectory controller</code> requiere el ingreso de todos los parámetros mencionados, pero por otro lado el <code>Joint state broadcaster</code> solamente necesita los  <code>joints</code>. </p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../4-1-URDF/" class="btn btn-neutral float-left" title="5. URDF"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../5-1-ServoXacros/" class="btn btn-neutral float-right" title="7. Servo Xacros">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../5-1-ScaraXacros/" class="btn btn-neutral float-left" title="7. Scara Xacros"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../5-3-ScaraMoveIt/" class="btn btn-neutral float-right" title="9. Scara Moveit">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -171,10 +204,10 @@ Se controla primeramente un servomotor con la intención de entender cómo funci
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../4-1-URDF/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../5-1-ScaraXacros/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../5-1-ServoXacros/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../5-3-ScaraMoveIt/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>11. Servo launch - Tutorial para ROS 2 Scara</title>
+    <title>11. Scara launch - Tutorial para ROS 2 Scara</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "11. Servo launch";
-        var mkdocs_page_input_path = "5-5-ServoLaunch.md";
+        var mkdocs_page_name = "11. Scara launch";
+        var mkdocs_page_input_path = "5-5-ScaraLaunch.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -65,27 +65,27 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../5-0-Servo/">6. Servo</a>
+                <li class="toctree-l1"><a class="reference internal" href="../5-0-Scara/">6. Scara</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../5-1-ServoXacros/">7. Servo Xacros</a>
+                <li class="toctree-l1"><a class="reference internal" href="../5-1-ScaraXacros/">7. Scara Xacros</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../5-2-ServoControllers/">8. Servo Controllers</a>
+                <li class="toctree-l1"><a class="reference internal" href="../5-2-ScaraControllers/">8. Scara Controllers</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../5-3-ServoMoveIt/">9. Servo Moveit</a>
+                <li class="toctree-l1"><a class="reference internal" href="../5-3-ScaraMoveIt/">9. Scara Moveit</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../5-4-ServoHardware%20y%20arduino/">10. Servo hardware</a>
+                <li class="toctree-l1"><a class="reference internal" href="../5-4-ScaraHardware%20y%20arduino/">10. Scara hardware</a>
                 </li>
               </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">11. Servo launch</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">11. Scara launch</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#111-mock-launch">11.1. Mock Launch</a>
     </li>
@@ -94,10 +94,6 @@
     <li class="toctree-l2"><a class="reference internal" href="#113-demo-launch">11.3. Demo Launch</a>
     </li>
     </ul>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../6-0-SCARA/">12. SCARA</a>
                 </li>
               </ul>
       </div>
@@ -114,7 +110,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-      <li>11. Servo launch</li>
+      <li>11. Scara launch</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -123,25 +119,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="11-servo-launch">11. Servo launch</h1>
-<p style="text-align: justify;">
-
-Los archivos Launch son de vital importancia porque son con los que se ejecuta todo un paquete. Estos archivos normalmente se hacen en python y su funcionamiento es bastante básico. Su arquitectura se constituye de una función general llamada `generate_launch_description` que internamente posee los definiciones con parámetros de los diferentes nodos que deseamos ejecutar. como Gazebo, Rviz, joint_state_publisher_gui, etc. Y al final, posee un return LaunchDescription con los nodos que se desean ejecutar en ese Launch.
-</p style="text-align: justify;">
-
+                <h1 id="11-scara-launch">11. Scara launch</h1>
+<p>Los archivos Launch son de vital importancia porque son con los que se ejecuta todo un paquete. Estos archivos normalmente se hacen en python y su funcionamiento es bastante básico. Su arquitectura se constituye de una función general llamada <code>generate_launch_description</code>  que internamente posee los definiciones con parámetros de los diferentes nodos que deseamos ejecutar. como Gazebo, Rviz, joint_state_publisher_gui, etc. Y al final, posee un return LaunchDescription con los nodos que se desean ejecutar en ese Launch.</p>
 <p>En este repositorio se encuentran distintos <code>Launch</code> descritos a continuación:</p>
 <ol>
-<li><strong>demo.launch.py:</strong> Archivo <code>Launch</code> general para realizar el control con el servo <em>REAL</em></li>
-<li><strong>gazebo.launch.py:</strong> Archivo <code>Launch</code> para realizar el control del servo en la simulación con <code>Gazebo</code></li>
-<li><strong>mock.launch.py:</strong> Archivo <code>Launch</code>para realizar el control en <code>Rviz</code> con un servo <em>FALSO</em> </li>
+<li><strong>demo.launch.py:</strong> Archivo <code>Launch</code> general para realizar el control con el Scara <em>REAL</em></li>
+<li><strong>gazebo.launch.py:</strong> Archivo <code>Launch</code> para realizar el control del scara en la simulación con <code>Gazebo</code></li>
+<li><strong>mock.launch.py:</strong> Archivo <code>Launch</code>para realizar el control en <code>Rviz</code> con un scara <em>FALSO</em> </li>
 </ol>
-<p>Estos 3 archivos <code>Launch</code> son necesarios para toda la ejecución y control del servo ya que son como una <em>secuencia</em> para el éxito del proyecto. Primero se debe asegurar que el <code>mock.launch.py</code> funcione correctamente, después de esto se debe lograr que el <code>gazebo.launch.py</code> funcione para así pasar con el <em>Hardware Component</em> al <code>demo.launch.py</code>.</p>
+<p>Estos 3 archivos <code>Launch</code> son necesarios para toda la ejecución y control del scara ya que son como una <em>secuencia</em> para el éxito del proyecto. Primero se debe asegurar que el <code>mock.launch.py</code> funcione correctamente, después de esto se debe lograr que el <code>gazebo.launch.py</code> funcione para así pasar con el <em>Hardware Component</em> al <code>demo.launch.py</code>.</p>
 <h2 id="111-mock-launch">11.1. Mock Launch</h2>
-<p>El archivo <code>mock.launch.py</code> es uno de los más importantes porque es el primer paso para el contorl de cualquier dispositivo. Al funcionar este archivo se está asegurando que el planner de <code>moveit</code> está funcionando correctamente en conjunto con el <code>URDF</code> y los <code>xacros</code>.</p>
+<p>El archivo <code>mock.launch.py</code> es uno de los más importantes porque es el primer paso para el control de cualquier dispositivo. Al funcionar este archivo se está asegurando que el planner de <code>moveit</code> está funcionando correctamente en conjunto con el <code>URDF</code> y los <code>xacros</code>.</p>
 <p>Al inicio de cualquier <code>Launch</code> lo primero que se tiene es la importación de funciones necesarias </p>
 <pre><code class="language-python">import os
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, Shutdown
 from launch.substitutions import LaunchConfiguration
 from launch.conditions import IfCondition, UnlessCondition
 from launch_ros.actions import Node
@@ -158,10 +150,11 @@ from moveit_configs_utils import MoveItConfigsBuilder
     )
 
     moveit_config = (
-        MoveItConfigsBuilder(&quot;servo_hardware&quot;)
-        .robot_description(file_path=&quot;config/servo_mock.urdf.xacro&quot;)
-        .robot_description_semantic(file_path=&quot;config/servo.srdf&quot;)
+        MoveItConfigsBuilder(&quot;scara&quot;)
+        .robot_description(file_path=&quot;config/mock.xacro&quot;)
+        .robot_description_semantic(file_path=&quot;config/scara.srdf&quot;)
         .trajectory_execution(file_path=&quot;config/moveit_controllers.yaml&quot;)
+        .robot_description_kinematics(file_path=&quot;config/kinematics.yaml&quot;)
         .to_moveit_configs()
     )
 
@@ -176,7 +169,7 @@ from moveit_configs_utils import MoveItConfigsBuilder
 <p>Luego sigue la configuración del <code>Rviz</code></p>
 <pre><code class="language-python">    # RViz
     rviz_base = os.path.join(
-        get_package_share_directory(&quot;servo_hardware_moveit_config&quot;), &quot;launch&quot;
+        get_package_share_directory(&quot;scara_moveit_config&quot;), &quot;launch&quot;
     )
     rviz_full_config = os.path.join(rviz_base, &quot;moveit.rviz&quot;)
 
@@ -192,6 +185,7 @@ from moveit_configs_utils import MoveItConfigsBuilder
             moveit_config.planning_pipelines,
             moveit_config.robot_description_kinematics,
         ],
+        on_exit=Shutdown()
     )
 </code></pre>
 <p>Luego se ingresa la posición inicial del robot y la definición del <code>robot_state_publisher</code> para realizar las transformaciones necesarias con el movimiento</p>
@@ -201,7 +195,9 @@ from moveit_configs_utils import MoveItConfigsBuilder
         executable=&quot;static_transform_publisher&quot;,
         name=&quot;static_transform_publisher&quot;,
         output=&quot;log&quot;,
-        arguments=[&quot;0.0&quot;, &quot;0.0&quot;, &quot;0.0&quot;, &quot;0.0&quot;, &quot;0.0&quot;, &quot;0.0&quot;, &quot;world&quot;, &quot;base_link&quot;],
+        arguments=[
+            &quot;--frame-id&quot;,&quot;world&quot;, 
+            &quot;--child-frame-id&quot;,&quot;base_link&quot;],
     )
 
     # Publish TF
@@ -216,7 +212,7 @@ from moveit_configs_utils import MoveItConfigsBuilder
 <p>Luego se ingresa el nodo de <code>ros2_control</code> con la ruta de los controladores necesarios </p>
 <pre><code class="language-python">    # ros2_control using FakeSystem as hardware
     ros2_controllers_path = os.path.join(
-        get_package_share_directory(&quot;servo_hardware_moveit_config&quot;),
+        get_package_share_directory(&quot;scara&quot;),
         &quot;config&quot;,
         &quot;ros2_controllers.yaml&quot;,
     )
@@ -238,11 +234,11 @@ from moveit_configs_utils import MoveItConfigsBuilder
         ],
     )
 
-    servo_controller_spawner = Node(
+    scara_controller_spawner = Node(
         package=&quot;controller_manager&quot;,
         executable=&quot;spawner&quot;,
         arguments=[
-            &quot;servo_controller&quot;,
+            &quot;scara_controller&quot;,
             &quot;--controller-manager&quot;,
             &quot;/controller_manager&quot;,
         ],
@@ -273,7 +269,7 @@ from moveit_configs_utils import MoveItConfigsBuilder
             ros2_control_node,
             mongodb_server_node,
             joint_state_broadcaster_spawner,
-            servo_controller_spawner,
+            scara_controller_spawner,
         ]
     )
 </code></pre>
@@ -282,30 +278,25 @@ from moveit_configs_utils import MoveItConfigsBuilder
 <p>Primero en la importación de funciones:</p>
 <pre><code class="language-python">import os
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, RegisterEventHandler
+from launch.actions import Shutdown, IncludeLaunchDescription, RegisterEventHandler
 from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 from moveit_configs_utils import MoveItConfigsBuilder
 </code></pre>
-<p>Luego, tiene un nodo para la ejecución de <code>Gazebo</code> y el <code>Serial Device</code> para la posición del servo</p>
+<p>Luego, tiene un nodo para la ejecución de <code>Gazebo</code> </p>
 <pre><code class="language-python">    gazebo = IncludeLaunchDescription(
-    PythonLaunchDescriptionSource([os.path.join(
-        get_package_share_directory('gazebo_ros'), 'launch'), '/gazebo.launch.py']),
-    )
-
-    # Command-line arguments
-    serial_arg = DeclareLaunchArgument(
-        &quot;port&quot;, default_value=&quot;/dev/ttyACM0&quot;, description=&quot;Puerto comunicacion serial&quot;
+        PythonLaunchDescriptionSource([os.path.join(
+            get_package_share_directory('gazebo_ros'), 'launch'), '/gazebo.launch.py']),
     )
 </code></pre>
 <p>Para la simulación se habilita el tiempo de la misma con el parámetro <code>use_sim_time</code></p>
-<pre><code class="language-python">    use_sim_time = {&quot;use_sim_time&quot;:True}
+<pre><code class="language-python">    use_sim_time = {&quot;use_sim_time&quot;: True}
     moveit_config = (
-        MoveItConfigsBuilder(&quot;servo_hardware&quot;)
-        .robot_description(file_path=&quot;config/servo_gazebo.urdf.xacro&quot;)
-        .robot_description_semantic(file_path=&quot;config/servo.srdf&quot;)
+        MoveItConfigsBuilder(&quot;scara&quot;)
+        .robot_description(file_path=&quot;config/gazebo.xacro&quot;)
+        .robot_description_semantic(file_path=&quot;config/scara.srdf&quot;)
         .trajectory_execution(file_path=&quot;config/moveit_controllers.yaml&quot;)
         .robot_description_kinematics(file_path=&quot;config/kinematics.yaml&quot;)
         .to_moveit_configs()
@@ -315,8 +306,9 @@ from moveit_configs_utils import MoveItConfigsBuilder
 </code></pre>
 <p>Se añade un nodo para spawnear la entidad en el entorno de simulación de <code>Gazebo</code></p>
 <pre><code class="language-python">    spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
-        arguments=['-topic', 'robot_description','-entity', 'servo'],
-        output='screen')
+                        arguments=['-topic', 'robot_description',
+                                   '-entity', 'scara'],
+                        output='screen')
 </code></pre>
 <p>Y por último entre la ejecución de los controladores se añade un <em>delay</em> para evitar un fallo entre los mismos</p>
 <pre><code class="language-python">    #NODO DE JOINT_STATE_BROADCASTER
@@ -328,32 +320,31 @@ from moveit_configs_utils import MoveItConfigsBuilder
         )
     )
 
-    #NODO DE SERVO_CONTROLLER
+    #NODO DE SCARA_CONTROLLER
 
-    delayed_servo_controller_spawner = RegisterEventHandler(
+    delayed_scara_controller_spawner = RegisterEventHandler(
         event_handler=OnProcessExit(
             target_action=joint_state_broadcaster_spawner,
-            on_exit=[servo_controller_spawner],
+            on_exit=[scara_controller_spawner],
         )
     )
 </code></pre>
 <h2 id="113-demo-launch">11.3. Demo Launch</h2>
 <p>El demo Launch es el archivo que se utiliza para controlar con el servo <em>REAL</em> conectado. Curiosamente, es un <code>Launch</code> muy similar al <code>mock.launch.py</code> y solo existe una diferencia entre estos dos archivos:</p>
 <pre><code class="language-python">    moveit_config = (
-        MoveItConfigsBuilder(&quot;servo_hardware&quot;)
-        .robot_description(file_path=&quot;config/servo.urdf.xacro&quot;)
-        .robot_description_semantic(file_path=&quot;config/servo.srdf&quot;)
+        MoveItConfigsBuilder(&quot;scara&quot;)
+        .robot_description(file_path=&quot;config/scara.urdf&quot;)
+        .robot_description_semantic(file_path=&quot;config/scara.srdf&quot;)
         .trajectory_execution(file_path=&quot;config/moveit_controllers.yaml&quot;)
         .to_moveit_configs()
     )
 </code></pre>
-<p>En vez de tomar <code>servo_mock.urdf.xacro</code>, se toma el <code>servo.urdf.xacro</code> de la carpeta config. Con esto ya no se estaría tomando el plugin de un servo <em>FALSO</em> sino el plugin constituido en <em>C++</em> para el servo <em>REAL</em>.</p>
+<p>En vez de tomar <code>mock.xacro</code>, se toma el <code>scara.urdf</code> de la carpeta config. Con esto ya no se estaría tomando el plugin de un scara <em>FALSO</em> sino el plugin constituido en <em>C++</em> para el scara <em>REAL</em>.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../5-4-ServoHardware%20y%20arduino/" class="btn btn-neutral float-left" title="10. Servo hardware"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../6-0-SCARA/" class="btn btn-neutral float-right" title="12. SCARA">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../5-4-ScaraHardware%20y%20arduino/" class="btn btn-neutral float-left" title="10. Scara hardware"><span class="icon icon-circle-arrow-left"></span> Previous</a>
     </div>
 
   <hr/>
@@ -378,10 +369,8 @@ from moveit_configs_utils import MoveItConfigsBuilder
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../5-4-ServoHardware%20y%20arduino/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../5-4-ScaraHardware%20y%20arduino/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
-    
-      <span><a href="../6-0-SCARA/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
