@@ -1,3 +1,3 @@
-# 10. Servo hardware  
+# 10. Scara hardware  
 
 Harware y arduino de servo 
