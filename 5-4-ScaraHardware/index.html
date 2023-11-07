@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>10. Scara hardware - Tutorial para ROS 2 Scara</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "10. Scara hardware";
+        var mkdocs_page_input_path = "5-4-ScaraHardware.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Tutorial para ROS 2 Scara
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../1-0-Ros2%20installation/">1. Ros2 Installation for Ubuntu</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../2-0-Requisitos/">2. Requisitos software</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../3-0-primerosPasosRos/">3. Primeros pasos con ROS</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../4-0-Canal%20de%20referencia/">4. Canal de referencia</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../4-1-URDF/">5. URDF</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-0-Scara/">6. Scara</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-1-ScaraXacros/">7. Scara Xacros</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-2-ScaraControllers/">8. Scara Controllers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-3-ScaraMoveIt/">9. Scara Moveit</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">10. Scara hardware</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#101-scara_systemcpp">10.1 scara_system.cpp</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#102-scara_systemhpp">10.2 scara_system.hpp</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#103-arduino_commshpp">10.3 arduino_comms.hpp</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#104-jointhpp">10.4 joint.hpp</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#105-visibility_controlh">10.5 visibility_control.h</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5-5-ScaraLaunch/">11. Scara launch</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Tutorial para ROS 2 Scara</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>10. Scara hardware</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="10-scara-hardware">10. Scara hardware</h1>
+<p>El <em>Hardware Component</em> del Scara se compone de lo siguiente: </p>
+<ol>
+<li>Archivo <code>scara_system.cpp</code> en donde se define el sistema de hardware del robot, incluyendo la configuración de controladores, la comunicación de sensores y motores del robot (si aplica) y funciones específicas </li>
+<li>Carpeta <code>include</code> donde se almacenan archivos de encabezado <code>.h</code> y <code>.hpp</code> en donde se declaran funciones, clases y estructuras utiliadas en el código. </li>
+</ol>
+<p>Esta carpeta contiene 4 archivos importantes: </p>
+<ol>
+<li><code>arduino_comms.hpp</code> en donde se contienen las definiciones y declaraciones relacionadas con la comunicación entre el Scara y arduino</li>
+<li><code>joint.hpp</code> en donde se define la clase o las estructuras relacionadas con los joints del robot</li>
+<li><code>scara_systema.hpp</code> en donde se define la clase principal o estructura que representa el sistema del robot</li>
+<li><code>visibility_control.h</code> que se utiliza para la exportación de símbolos en bibliotecas y asegurar así su correcta compilación y vinculación. </li>
+</ol>
+<p>A continuación se realiza una descripción de los archivos que componen el <em>Hardware Component</em></p>
+<h2 id="101-scara_systemcpp">10.1 scara_system.cpp</h2>
+<p>Primero se incluyen todas las librerías necesarias para la definición del <em>sistema</em> del robot </p>
+<pre><code class="language-c++">#include &quot;scara_hardware/scara_system.hpp&quot;
+#include &lt;chrono&gt;
+#include &lt;cmath&gt;
+#include &lt;limits&gt;
+#include &lt;memory&gt;
+#include &lt;vector&gt;
+#include &quot;hardware_interface/types/hardware_interface_type_values.hpp&quot;
+#include &quot;rclcpp/rclcpp.hpp&quot;
+</code></pre>
+<p>Después de esto se define un espacio de nombres llamado <code>scara_hardware</code> con un condicional inicial que se asegura de la correcta inicialización del robot</p>
+<pre><code class="language-c++">namespace scara_hardware
+{
+  hardware_interface::CallbackReturn ScaraHardwareComponent::on_init(
+      const hardware_interface::HardwareInfo &amp;info)
+  {
+    if (
+        hardware_interface::SystemInterface::on_init(info) !=
+        hardware_interface::CallbackReturn::SUCCESS)
+    {
+      return hardware_interface::CallbackReturn::ERROR;
+    }
+</code></pre>
+<p>Luego de esto se definen todos los parámetros necesarios para cada joint de la siguiente manera: </p>
+<pre><code class="language-c++">// Joint 1
+    std::string j1_name = info_.hardware_parameters[&quot;joint1_name&quot;];
+    double j1_gain = std::stof(info_.hardware_parameters[&quot;joint1_controller_gain&quot;]);
+    double j1_counts = std::stof(info_.hardware_parameters[&quot;joint1_counts_per_unit&quot;]);
+    double j1_ref = std::stof(info_.hardware_parameters[&quot;joint1_ref&quot;]);
+    int j1_mintp = std::stoi(info_.hardware_parameters[&quot;joint1_minimum_time_period&quot;]);
+    int j1_maxtp = std::stoi(info_.hardware_parameters[&quot;joint1_maximum_time_period&quot;]);
+    int j1_offset = std::stoi(info_.hardware_parameters[&quot;joint1_offset&quot;]);
+
+    joint1_.setup(j1_name, j1_gain, j1_counts, j1_ref, j1_mintp, j1_maxtp, j1_offset);
+</code></pre>
+<p>Además, se ingresan los parámetros para la comunicación serial </p>
+<pre><code class="language-c++">cfg_.loop_rate = std::stof(info_.hardware_parameters[&quot;loop_rate&quot;]);
+    cfg_.device = info_.hardware_parameters[&quot;device&quot;];
+    cfg_.baud_rate = std::stoi(info_.hardware_parameters[&quot;baud_rate&quot;]);
+    cfg_.timeout_ms = std::stoi(info_.hardware_parameters[&quot;timeout_ms&quot;]);
+    cfg_.echo = info_.hardware_parameters[&quot;echo&quot;] == &quot;true&quot; || info_.hardware_parameters[&quot;echo&quot;] == &quot;1&quot;;
+</code></pre>
+<p>Después de esto se realiza un bucle para confirmar la información de los joints contenida en las <code>command_interfaces</code> y <code>state_interfaces</code>. Por ejemplo, a continuación se confirma que las  <code>command_interfaces</code> sea sólo <em>UNA</em>: de  <code>POSITION</code> (esto debe tener concordancia con la definición de los controladores del robot). </p>
+<pre><code class="language-c++">for (const hardware_interface::ComponentInfo &amp;joint : info_.joints)
+    {
+      // DiffBotSystem has exactly two states and one command interface on each joint
+      if (joint.command_interfaces.size() != 1)
+      {
+        RCLCPP_FATAL(
+            rclcpp::get_logger(&quot;ScaraHardwareComponent&quot;),
+            &quot;Joint '%s' has %zu command interfaces found. 1 expected.&quot;, joint.name.c_str(),
+            joint.command_interfaces.size());
+        return hardware_interface::CallbackReturn::ERROR;
+      }
+
+      if (joint.command_interfaces[0].name != hardware_interface::HW_IF_POSITION)
+      {
+        RCLCPP_FATAL(
+            rclcpp::get_logger(&quot;ScaraHardwareComponent&quot;),
+            &quot;Joint '%s' have %s command interfaces found. '%s' expected.&quot;, joint.name.c_str(),
+            joint.command_interfaces[0].name.c_str(), hardware_interface::HW_IF_POSITION);
+        return hardware_interface::CallbackReturn::ERROR;
+      }
+</code></pre>
+<p>De igual manera se realiza con las <code>state_interfaces</code> confirmando que sean dos: <code>POSITION</code> y <code>VELOCITY</code></p>
+<pre><code class="language-c++">if (joint.state_interfaces.size() != 2)
+      {
+        RCLCPP_FATAL(
+            rclcpp::get_logger(&quot;ScaraHardwareComponent&quot;),
+            &quot;Joint '%s' has %zu state interface. 2 expected.&quot;, joint.name.c_str(),
+            joint.state_interfaces.size());
+        return hardware_interface::CallbackReturn::ERROR;
+      }
+
+      if (joint.state_interfaces[0].name != hardware_interface::HW_IF_POSITION)
+      {
+        RCLCPP_FATAL(
+            rclcpp::get_logger(&quot;ScaraHardwareComponent&quot;),
+            &quot;Joint '%s' have '%s' as first state interface. '%s' expected.&quot;, joint.name.c_str(),
+            joint.state_interfaces[0].name.c_str(), hardware_interface::HW_IF_POSITION);
+        return hardware_interface::CallbackReturn::ERROR;
+      }
+
+      if (joint.state_interfaces[1].name != hardware_interface::HW_IF_VELOCITY)
+      {
+        RCLCPP_FATAL(
+            rclcpp::get_logger(&quot;ScaraHardwareComponent&quot;),
+            &quot;Joint '%s' have '%s' as second state interface. '%s' expected.&quot;, joint.name.c_str(),
+            joint.state_interfaces[1].name.c_str(), hardware_interface::HW_IF_VELOCITY);
+        return hardware_interface::CallbackReturn::ERROR;
+      }
+    }
+
+    return hardware_interface::CallbackReturn::SUCCESS;
+  }
+</code></pre>
+<p>Luego se crea un vector para exportar las <code>command_interfaces</code> y <code>state_interfaces</code>  de los joints del robot</p>
+<pre><code class="language-c++">std::vector&lt;hardware_interface::StateInterface&gt; ScaraHardwareComponent::export_state_interfaces()
+  {
+    std::vector&lt;hardware_interface::StateInterface&gt; state_interfaces;
+
+    state_interfaces.emplace_back(hardware_interface::StateInterface(
+        joint1_.name, hardware_interface::HW_IF_POSITION, &amp;joint1_.position));
+    state_interfaces.emplace_back(hardware_interface::StateInterface(
+        joint1_.name, hardware_interface::HW_IF_VELOCITY, &amp;joint1_.velocity));
+    state_interfaces.emplace_back(hardware_interface::StateInterface(
+        joint2_.name, hardware_interface::HW_IF_POSITION, &amp;joint2_.position));
+    state_interfaces.emplace_back(hardware_interface::StateInterface(
+        joint2_.name, hardware_interface::HW_IF_VELOCITY, &amp;joint2_.velocity));
+    state_interfaces.emplace_back(hardware_interface::StateInterface(
+        joint3_.name, hardware_interface::HW_IF_POSITION, &amp;joint3_.position));
+    state_interfaces.emplace_back(hardware_interface::StateInterface(
+        joint3_.name, hardware_interface::HW_IF_VELOCITY, &amp;joint3_.velocity));
+    state_interfaces.emplace_back(hardware_interface::StateInterface(
+        joint4_.name, hardware_interface::HW_IF_POSITION, &amp;joint4_.position));
+    state_interfaces.emplace_back(hardware_interface::StateInterface(
+        joint4_.name, hardware_interface::HW_IF_VELOCITY, &amp;joint4_.velocity));
+
+    return state_interfaces;
+  }
+
+
+   std::vector&lt;hardware_interface::CommandInterface&gt; ScaraHardwareComponent::export_command_interfaces()
+  {
+    std::vector&lt;hardware_interface::CommandInterface&gt; command_interfaces;
+
+    command_interfaces.emplace_back(hardware_interface::CommandInterface(
+        joint1_.name, hardware_interface::HW_IF_POSITION, &amp;joint1_.ref));
+    command_interfaces.emplace_back(hardware_interface::CommandInterface(
+        joint2_.name, hardware_interface::HW_IF_POSITION, &amp;joint2_.ref));
+    command_interfaces.emplace_back(hardware_interface::CommandInterface(
+        joint3_.name, hardware_interface::HW_IF_POSITION, &amp;joint3_.ref));
+    command_interfaces.emplace_back(hardware_interface::CommandInterface(
+        joint4_.name, hardware_interface::HW_IF_POSITION, &amp;joint4_.ref));
+
+    return command_interfaces;
+  }
+</code></pre>
+<p>Luego se realiza la creación de funciones como <code>on_configure</code>, <code>on_cleanup</code>, <code>on_activate</code> y <code>on_deactivate</code></p>
+<pre><code class="language-c++">hardware_interface::CallbackReturn ScaraHardwareComponent::on_configure(
+      const rclcpp_lifecycle::State &amp; /*previous_state*/)
+  {
+    RCLCPP_INFO(rclcpp::get_logger(&quot;ScaraHardwareComponent&quot;), &quot;Configuring ...please wait...&quot;);
+    // RCLCPP_INFO(rclcpp::get_logger(&quot;ScaraHardwareComponent&quot;), std::string(cfg_.device));
+    // RCLCPP_INFO(rclcpp::get_logger(&quot;ScaraHardwareComponent&quot;), std::string(cfg_.baud_rate));
+    // RCLCPP_INFO(rclcpp::get_logger(&quot;ScaraHardwareComponent&quot;), std::string(cfg_.timeout_ms));
+    if (comms_.connected())
+    {
+      comms_.disconnect();
+    }
+    comms_.connect(cfg_.device, cfg_.baud_rate, cfg_.timeout_ms);
+    RCLCPP_INFO(rclcpp::get_logger(&quot;ScaraHardwareComponent&quot;), &quot;Successfully configured!&quot;);
+
+    return hardware_interface::CallbackReturn::SUCCESS;
+  }
+
+  hardware_interface::CallbackReturn ScaraHardwareComponent::on_cleanup(
+      const rclcpp_lifecycle::State &amp; /*previous_state*/)
+  {
+    RCLCPP_INFO(rclcpp::get_logger(&quot;ScaraHardwareComponent&quot;), &quot;Cleaning up ...please wait...&quot;);
+    if (comms_.connected())
+    {
+      comms_.disconnect();
+    }
+    RCLCPP_INFO(rclcpp::get_logger(&quot;ScaraHardwareComponent&quot;), &quot;Successfully cleaned up!&quot;);
+
+    return hardware_interface::CallbackReturn::SUCCESS;
+  }
+
+  hardware_interface::CallbackReturn ScaraHardwareComponent::on_activate(
+      const rclcpp_lifecycle::State &amp; /*previous_state*/)
+  {
+    RCLCPP_INFO(rclcpp::get_logger(&quot;ScaraHardwareComponent&quot;), &quot;Activating ...please wait...&quot;);
+    if (!comms_.connected())
+    {
+      return hardware_interface::CallbackReturn::ERROR;
+    }
+    RCLCPP_INFO(rclcpp::get_logger(&quot;ScaraHardwareComponent&quot;), &quot;Successfully activated!&quot;);
+
+    return hardware_interface::CallbackReturn::SUCCESS;
+  }
+
+  hardware_interface::CallbackReturn ScaraHardwareComponent::on_deactivate(
+      const rclcpp_lifecycle::State &amp; /*previous_state*/)
+  {
+    RCLCPP_INFO(rclcpp::get_logger(&quot;ScaraHardwareComponent&quot;), &quot;Deactivating ...please wait...&quot;);
+    RCLCPP_INFO(rclcpp::get_logger(&quot;ScaraHardwareComponent&quot;), &quot;Successfully deactivated!&quot;);
+
+    return hardware_interface::CallbackReturn::SUCCESS;
+  }
+</code></pre>
+<p>Luego de esto, se crea la función <code>read</code> que tiene como objetivo <em>leer</em> los datos desde el hardware del robot SCARA y actualizar las variables internas que representan el estado de las articulaciones. Primero se verifica si la comunicación con el hardware está establecida.</p>
+<pre><code class="language-c++">hardware_interface::return_type ScaraHardwareComponent::read(
+      const rclcpp::Time &amp; /*time*/, const rclcpp::Duration &amp;period)
+  {
+    if (!comms_.connected())
+    {
+      return hardware_interface::return_type::ERROR;
+    }
+</code></pre>
+<p>Luego se crea un string con toda la información de las articulaciones en un archivo .CSV llamado <code>ss</code></p>
+<pre><code class="language-c++">double delta_seconds = period.seconds();
+
+    std::stringstream ss;
+    ss &lt;&lt; joint1_.direction_cmd &lt;&lt; &quot;,&quot;;
+    ss &lt;&lt; joint1_.period_cmd &lt;&lt; &quot;,&quot;;
+    ss &lt;&lt; joint2_.direction_cmd &lt;&lt; &quot;,&quot;;
+    ss &lt;&lt; joint2_.period_cmd &lt;&lt; &quot;,&quot;;
+    ss &lt;&lt; joint3_.direction_cmd &lt;&lt; &quot;,&quot;;
+    ss &lt;&lt; joint3_.period_cmd &lt;&lt; &quot;,&quot;;
+    ss &lt;&lt; joint4_.direction_cmd &lt;&lt; &quot;,&quot;;
+    ss &lt;&lt; joint4_.period_cmd &lt;&lt; &quot;\n&quot;;
+
+    std::string response = comms_.send_msg(ss.str(),cfg_.echo);
+</code></pre>
+<p>Luego de almacenada esta información se procesa esta respuesta para ser almacenadas en otras variables</p>
+<pre><code class="language-c++"> if (response.length() &gt; 0)
+    {
+      std::string delimiter = &quot;,&quot;;
+      size_t del_pos = response.find(delimiter);
+
+      std::string aux_value = response.substr(0, del_pos);
+      joint1_.position_cnts = std::atoi(aux_value.c_str());
+      response = response.substr(del_pos + delimiter.length());
+
+      del_pos = response.find(delimiter);
+      aux_value = response.substr(0, del_pos);
+      joint2_.position_cnts = std::atoi(aux_value.c_str());
+      response = response.substr(del_pos + delimiter.length());
+
+      del_pos = response.find(delimiter);
+      aux_value = response.substr(0, del_pos);
+      joint3_.position_cnts = std::atoi(aux_value.c_str());
+      response = response.substr(del_pos + delimiter.length());
+
+      joint4_.position_cnts = std::atoi(response.c_str());
+    }
+</code></pre>
+<p>Después se utiliza el método <code>loop</code> para actualizar el estado de las articulaciones con base en la nueva información obtenida y el tiempo transcurrido.</p>
+<pre><code class="language-c++">    joint1_.loop(delta_seconds);
+    joint2_.loop(delta_seconds);
+    joint3_.loop(delta_seconds);
+    joint4_.loop(delta_seconds);
+
+    return hardware_interface::return_type::OK;
+  }
+
+</code></pre>
+<p>Luego, se escribe la función <code>write</code>, que lo único que hace es devolver un <code>ok</code> en el caso de estar conectado con el hardware del robot</p>
+<pre><code class="language-c++">hardware_interface::return_type scara_hardware ::ScaraHardwareComponent::write(
+      const rclcpp::Time &amp; /*time*/, const rclcpp::Duration &amp; /*period*/)
+  {
+    if (!comms_.connected())
+    {
+      return hardware_interface::return_type::ERROR;
+    }
+    return hardware_interface::return_type::OK;
+  }
+
+} 
+</code></pre>
+<p>Y por último, se incluye un plugin para exportar las clases necesarias, en este caso <code>scara_hardware</code> como <code>ScaraHardwareComponent</code>  y <code>hardware_interface</code> como <code>SystemInterface</code>.</p>
+<pre><code class="language-c++">#include &quot;pluginlib/class_list_macros.hpp&quot;
+PLUGINLIB_EXPORT_CLASS(
+    scara_hardware::ScaraHardwareComponent, hardware_interface::SystemInterface)
+</code></pre>
+<h2 id="102-scara_systemhpp">10.2 scara_system.hpp</h2>
+<p>Primero se incluyen las librerías y archivos necesarios; además de definir el símbolo <code>SCARA_HARDWARE__SERVO_SYSTEM_HPP_</code></p>
+<pre><code class="language-c++">#ifndef SCARA_HARDWARE__SERVO_SYSTEM_HPP_
+#define SCARA_HARDWARE__SERVO_SYSTEM_HPP_
+
+#include &lt;memory&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+#include &quot;hardware_interface/handle.hpp&quot;
+#include &quot;hardware_interface/hardware_info.hpp&quot;
+#include &quot;hardware_interface/system_interface.hpp&quot;
+#include &quot;hardware_interface/types/hardware_interface_return_values.hpp&quot;
+#include &quot;rclcpp/clock.hpp&quot;
+#include &quot;rclcpp/duration.hpp&quot;
+#include &quot;rclcpp/macros.hpp&quot;
+#include &quot;rclcpp/time.hpp&quot;
+#include &quot;rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp&quot;
+#include &quot;rclcpp_lifecycle/state.hpp&quot;
+
+#include &quot;scara_hardware/visibility_control.h&quot;
+#include &quot;scara_hardware/arduino_comms.hpp&quot;
+#include &quot;scara_hardware/joint.hpp&quot;
+</code></pre>
+<p>Se define un espacio llamado <code>scara_hardware</code> junto con la clase <code>ScaraHardwareComponent</code>; además, se crea una estructura llamada <code>Config</code> en donde se almacena la configuración y los parámetros relacionados con el hardware del robot, como <code>loop_rate</code>, <code>baud_rate</code>, <code>timeout_ms</code>, etc. </p>
+<pre><code class="language-c++">namespace scara_hardware
+{
+class ScaraHardwareComponent : public hardware_interface::SystemInterface
+{
+
+struct Config
+{
+  float loop_rate = 0.0;
+  std::string device = &quot;&quot;;
+  int baud_rate = 0;
+  int timeout_ms = 0;
+  bool echo = false;
+};
+</code></pre>
+<p>Luego, se validan funciones como <code>on_init</code>, <code>on_configure</code>, <code>export_state_interfaces</code>, <code>read</code>, etc.</p>
+<pre><code class="language-c++">public:
+
+  RCLCPP_SHARED_PTR_DEFINITIONS(ScaraHardwareComponent);
+
+  SCARA_HARDWARE_PUBLIC
+  hardware_interface::CallbackReturn on_init(
+    const hardware_interface::HardwareInfo &amp; info) override;
+
+  SCARA_HARDWARE_PUBLIC
+  hardware_interface::CallbackReturn on_configure(
+    const rclcpp_lifecycle::State &amp; previous_state) override;
+
+  SCARA_HARDWARE_PUBLIC
+  hardware_interface::CallbackReturn on_cleanup(
+    const rclcpp_lifecycle::State &amp; previous_state) override;
+
+  SCARA_HARDWARE_PUBLIC
+  hardware_interface::CallbackReturn on_activate(
+    const rclcpp_lifecycle::State &amp; previous_state) override;
+
+  SCARA_HARDWARE_PUBLIC
+  hardware_interface::CallbackReturn on_deactivate(
+    const rclcpp_lifecycle::State &amp; previous_state) override;
+
+  SCARA_HARDWARE_PUBLIC
+  hardware_interface::return_type read(
+    const rclcpp::Time &amp; time, const rclcpp::Duration &amp; period) override;
+
+  SCARA_HARDWARE_PUBLIC
+  hardware_interface::return_type write(
+    const rclcpp::Time &amp; time, const rclcpp::Duration &amp; period) override;
+
+  SCARA_HARDWARE_PUBLIC
+  std::vector&lt;hardware_interface::StateInterface&gt; export_state_interfaces() override;
+
+  SCARA_HARDWARE_PUBLIC
+  std::vector&lt;hardware_interface::CommandInterface&gt; export_command_interfaces() override;
+</code></pre>
+<p>Por último, se definen miembros utilizados en la clase descrita como <code>ArduinoComms</code>, <code>Joint</code>, <code>Config</code>, etc. Además, se finaliza el espacio <code>scara_hardware</code> y la definición del símbolo <code>SCARA_HARDWARE__SERVO_SYSTEM_HPP_</code>.</p>
+<pre><code class="language-c++">private:
+
+  ArduinoComms comms_;
+  Config cfg_;
+  Joint joint1_;
+  Joint joint2_;
+  Joint joint3_;
+  Joint joint4_;
+
+};
+
+}  // namespace scara_hardware
+
+#endif  // SCARA_HARDWARE__SERVO_SYSTEM_HPP_
+</code></pre>
+<h2 id="103-arduino_commshpp">10.3 arduino_comms.hpp</h2>
+<p>El archivo <code>arduino_comms.hpp</code> se basa simplemente en recibir todos los parámetros pertinentes para el arduino, primero se incluyen las librerías como en los demás archivos</p>
+<pre><code class="language-c++">#ifndef SCARA_HARDWARE_ARDUINO_COMMS_HPP
+#define SCARA_HARDWARE_ARDUINO_COMMS_HPP
+
+#include &lt;sstream&gt;
+#include &lt;libserial/SerialPort.h&gt;
+#include &lt;iostream&gt;
+</code></pre>
+<p>Se define la función <code>convert_baud_rate</code> </p>
+<pre><code class="language-c++">LibSerial::BaudRate convert_baud_rate(int baud_rate)
+{
+  // Just handle some common baud rates
+  switch (baud_rate)
+  {
+  case 1200:
+    return LibSerial::BaudRate::BAUD_1200;
+  case 1800:
+    return LibSerial::BaudRate::BAUD_1800;
+  case 2400:
+    return LibSerial::BaudRate::BAUD_2400;
+  case 4800:
+    return LibSerial::BaudRate::BAUD_4800;
+  case 9600:
+    return LibSerial::BaudRate::BAUD_9600;
+  case 19200:
+    return LibSerial::BaudRate::BAUD_19200;
+  case 38400:
+    return LibSerial::BaudRate::BAUD_38400;
+  case 57600:
+    return LibSerial::BaudRate::BAUD_57600;
+  case 115200:
+    return LibSerial::BaudRate::BAUD_115200;
+  case 230400:
+    return LibSerial::BaudRate::BAUD_230400;
+  default:
+    std::cout &lt;&lt; &quot;Error! Baud rate &quot; &lt;&lt; baud_rate &lt;&lt; &quot; not supported! Default to 57600&quot; &lt;&lt; std::endl;
+    return LibSerial::BaudRate::BAUD_57600;
+  }
+}
+</code></pre>
+<p>Luego se empieza con la creación de la clase <code>ArduinoComms</code> y funciones internas como <code>connect</code>, <code>disconnect</code>, <code>connected</code>, etc.</p>
+<pre><code class="language-c++">class ArduinoComms
+{
+
+public:
+  ArduinoComms() = default;
+
+  void connect(const std::string &amp;serial_device, int32_t baud_rate, int32_t timeout_ms)
+  {
+    timeout_ms_ = timeout_ms;
+    serial_conn_.Open(serial_device);
+    serial_conn_.SetBaudRate(convert_baud_rate(baud_rate));
+  }
+
+  void disconnect()
+  {
+    serial_conn_.Close();
+  }
+
+  bool connected() const
+  {
+    return serial_conn_.IsOpen();
+  }
+</code></pre>
+<p>Después se crea la función <code>send_msg</code> para enviar un mensaje a través de una conexión serial y recibir una respuesta</p>
+<pre><code class="language-c++">std::string send_msg(const std::string &amp;msg_to_send, bool print_output = false)
+  {
+    serial_conn_.FlushIOBuffers(); // Just in case
+    serial_conn_.Write(msg_to_send);
+
+    std::string response = &quot;&quot;;
+    try
+    {
+      // Responses end with \r\n so we will read up to (and including) the \n.
+      serial_conn_.ReadLine(response, '\n', timeout_ms_);
+    }
+    catch (const LibSerial::ReadTimeout &amp;)
+    {
+      std::cerr &lt;&lt; &quot;\e[1;31m The ReadByte() call has timed out. \e[0m&quot; &lt;&lt; std::endl;
+    }
+
+    if (print_output)
+    {
+      std::string msg_sent = msg_to_send.substr(0, msg_to_send.length() - 1);
+      std::cout &lt;&lt; &quot;\e[1;32m Sent: &quot; &lt;&lt; msg_sent &lt;&lt; &quot;\e[0m\n\e[1;32m Recv: &quot; &lt;&lt; response &lt;&lt; &quot;\e[0m&quot; &lt;&lt; std::endl;
+    }
+
+    return response;
+  }
+
+  void send_empty_msg()
+  {
+    std::string response = send_msg(&quot;\r&quot;);
+  }
+</code></pre>
+<p>Con esto se almacena información en la variable <code>response</code> en un tiempo establecido (<code>timeout_ms_</code>), esta variable se utiliza en el archivo <code>scara_system.cpp</code>. Y con esto se finaliza el archivo con los miembros privados</p>
+<pre><code class="language-c++">private:
+  LibSerial::SerialPort serial_conn_;
+  int timeout_ms_;
+};
+
+#endif // SCARA_HARDWARE_ARDUINO_COMMS_HPP
+</code></pre>
+<h2 id="104-jointhpp">10.4 joint.hpp</h2>
+<p>Ahora con toda la definición de la clase <code>Joint</code>, primero como con los demás documentos se incluyen las librerías y archivos</p>
+<pre><code class="language-c++">#ifndef SCARA_HARDWARE_JOINT_HPP
+#define SCARA_HARDWARE_JOINT_HPP
+#include &lt;string&gt;
+#include &lt;cmath&gt;
+</code></pre>
+<p>Se definen las variables con su clase pertinente dentro de la inicialización de la clase </p>
+<pre><code class="language-c++">class Joint
+{
+    public:
+
+    std::string name = &quot;&quot;;
+    double ref = 0;
+    double error = 0;
+    double gain = 0; // &lt;------------- input parameter
+    double cmd = 0; 
+    double counts_per_unit = 0; // &lt;-- input parameter
+    double velocity_cmd = 0;
+    int period_cmd = 0;
+    int direction_cmd = 0;
+    int us_min = 1; // &lt;-------------- input parameter
+    int us_max = 10; // &lt;------------- input parameter
+    int position_cnts = 0;
+    int position_offset = 0; // &lt;----- input parameter
+    double position = 0;
+    double velocity = 0;
+</code></pre>
+<p>Luego se ingresan todos los parámetros de la clase <code>Joint</code></p>
+<pre><code class="language-c++">Joint() = default;
+
+    Joint(
+      const std::string &amp;joint_name, 
+      double controller_gain, 
+      double counts, 
+      double reference,
+      int min, 
+      int max, 
+      int offset)
+    {
+      setup(joint_name, controller_gain, counts, reference, min, max, offset);
+    }
+</code></pre>
+<p>Junto con las funciones iniciales para buscar el control óptimo del robot </p>
+<pre><code class="language-c++">void setup(
+      const std::string &amp;joint_name, 
+      double controller_gain, 
+      double counts, 
+      double reference,
+      int min, 
+      int max, 
+      int offset)
+    {
+      // M_PI es la variable de pi=3.14159
+      name = joint_name;
+      gain = controller_gain;
+      counts_per_unit = counts;
+      ref = reference;
+      us_min = min;
+      us_max = max;
+      position_offset = offset;
+    }
+
+    void loop(double dt){
+      measure(dt);
+      control();
+    }
+</code></pre>
+<p>Con esto se definen todos los miembros privados de la clase en donde se definen distintas funciones para realizar el control óptimo de las posiciones de las articulaciones del robot  para finalizar el archivo. </p>
+<pre><code class="language-c++">private: 
+
+    int position_delta_ = 0;
+
+    double calc_position(){
+      position_delta_ = position_cnts - position_offset;
+      return (double) position_delta_ / counts_per_unit;
+    }
+
+    void measure(double dt){
+      double pos_prev = position;
+      position = calc_position();
+      velocity = (position - pos_prev) / dt;
+    }
+
+    void control(){
+      error = ref - position;
+      cmd = gain*error;
+      velocity_cmd = cmd*counts_per_unit;
+      if(velocity_cmd == 0){
+        period_cmd = 0;
+      }else{
+        if(velocity_cmd&gt;0){
+          direction_cmd = 1;
+        }else{
+          direction_cmd = 0;
+        }
+        period_cmd = (int) (1000000/velocity_cmd);
+        period_cmd = fmin(fmax(abs(period_cmd),us_min),us_max);
+      }
+    }
+
+};
+
+#endif // SCARA_HARDWARE_JOINT_HPP
+</code></pre>
+<h2 id="105-visibility_controlh">10.5 visibility_control.h</h2>
+<p>Por último el archivo <code>visibility_control.h</code>, este archivo de encabezado  se utiliza para definir directivas de preprocesador que gestionan la visibilidad de los símbolos (funciones, variables, clases, etc.) en una biblioteca o módulo de código. La visibilidad de los símbolos se refiere a si esos símbolos son accesibles desde fuera de la biblioteca o módulo.</p>
+<pre><code class="language-c++">#ifndef SCARA_HARDWARE__VISIBILITY_CONTROL_H_
+#define SCARA_HARDWARE__VISIBILITY_CONTROL_H_
+
+
+#if defined _WIN32 || defined __CYGWIN__
+#ifdef __GNUC__
+#define SCARA_HARDWARE_EXPORT __attribute__((dllexport))
+#define SCARA_HARDWARE_IMPORT __attribute__((dllimport))
+#else
+#define SCARA_HARDWARE_EXPORT __declspec(dllexport)
+#define SCARA_HARDWARE_IMPORT __declspec(dllimport)
+#endif
+#ifdef SCARA_HARDWARE_BUILDING_DLL
+#define SCARA_HARDWARE_PUBLIC SCARA_HARDWARE_EXPORT
+#else
+#define SCARA_HARDWARE_PUBLIC SCARA_HARDWARE_IMPORT
+#endif
+#define SCARA_HARDWARE_PUBLIC_TYPE SCARA_HARDWARE_PUBLIC
+#define SCARA_HARDWARE_LOCAL
+#else
+#define SCARA_HARDWARE_EXPORT __attribute__((visibility(&quot;default&quot;)))
+#define SCARA_HARDWARE_IMPORT
+#if __GNUC__ &gt;= 4
+#define SCARA_HARDWARE_PUBLIC __attribute__((visibility(&quot;default&quot;)))
+#define SCARA_HARDWARE_LOCAL __attribute__((visibility(&quot;hidden&quot;)))
+#else
+#define SCARA_HARDWARE_PUBLIC
+#define SCARA_HARDWARE_LOCAL
+#endif
+#define SCARA_HARDWARE_PUBLIC_TYPE
+#endif
+
+#endif  // SCARA_HARDWARE__VISIBILITY_CONTROL_H_
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../5-3-ScaraMoveIt/" class="btn btn-neutral float-left" title="9. Scara Moveit"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../5-5-ScaraLaunch/" class="btn btn-neutral float-right" title="11. Scara launch">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Derechos de autor &copy; 2023  <a href="https://github.com/Ph0n1x0">Luis Miguel Loaiza</a>,  <a href="https://github.com/David-8a">David Ochoa</a>,  <a href="https://github.com/davinsony">Davinson Castaño-Cano</a>.
+</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../5-3-ScaraMoveIt/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../5-5-ScaraLaunch/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../js/mathjax.js" defer></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6" defer></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
